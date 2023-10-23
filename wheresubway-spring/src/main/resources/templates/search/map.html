@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{layouts/headerData :: headerData}"></th:block>
+<th:block th:replace="~{layouts/header :: header}"></th:block>
+
+<style>
+    header.masthead{
+        background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("/assets/img/com/train_side.png");
+    }
+</style>
+<body>
+
+<header class="masthead">
+    <div class="container px-4 px-lg-5 h-100">
+        <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+            <div class="col-lg-8 align-self-end">
+                <h4 class="text-white font-weight-bold">지도</h4>
+                <hr class="divider" />
+            </div>
+            <div class="col-lg-8 align-self-baseline">
+
+            <label for="searchBox"></label>
+            <input name="keyword" id="searchBox" type="text" class="form-control rounded-pill" placeholder="2호선 역명을 입력해주세요! ex. 신촌 신촌역"
+            th:value="${keyword}"/>
+
+            <div class="input-group-append"></div>
+            </div>
+            <div class="mx-auto mt-5 search-bar input-group mb-3"> </div>
+
+            <!--카카오맵-->
+            <div id="map" style="width: 80%; height: 60%; border: 1px"></div>
+
+            <div class="col-lg-8 align-self-baseline"> </div> <!--공백-->
+
+        </div>
+
+    </div>
+</header>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<ul id="stationList" style="border: 2px;">
+    <li th:each="info : ${stationInfo}" th:text="${info}"></li>
+</ul>
+
+
+
+
+
+
+</body>
+
+<script>
+
+    //검색창 엔터키 설정 -> 해당 역으로 이동 + 엔터 누를때 표시할 내용들
+    document.getElementById('searchBox').addEventListener('keyup', function (e) {
+
+        if (e.keyCode === 13) { // Enter 키를 눌렀을 때
+            //카카오맵
+            searchAndDisplay(e.target.value);
+            //역정보
+            StationInfoSet(e.target.value);
+
+        }
+
+    });
+
+
+
+</script>
+
+<th:block th:replace="~{ layouts/kakaoApiMap :: kakaoMap(kakaoApiKey)}"></th:block>
+<th:block th:replace="~{ layouts/SeoulTrainApi :: SeoulTrain(trainApiKey)}"></th:block>
+
+<th:block th:replace="~{layouts/footer :: footer}"></th:block>
+</html>

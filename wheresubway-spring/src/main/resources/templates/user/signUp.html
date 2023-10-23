@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{layouts/headerData :: headerData}"></th:block>
+<th:block th:replace="~{ layouts/header :: header}"></th:block>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f1f1f1;  /* 배경색 추가 */
+    }
+
+    #login-container {
+        width: 500px;  /* 원하는 너비 설정 */
+        padding: 20px;
+        border: 1px solid #ccc;
+        background-color: #fff;  /* 백그라운드 컬러 추가 */
+        border-radius: 8px;  /* 둥근 테두리 효과 추가 */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);  /* 그림자 효과 추가 */
+    }
+
+</style>
+<body>
+<div id="login-container">
+    <!--  login 폼 영역을 : loginBox -->
+    <div id="loginBox">
+
+        <!-- 로그인 페이지 타이틀 -->
+        <div id="loginBoxTitle">어디?어디! 회원가입</div>
+        <hr class="divider" />
+        <!-- 아이디, 비번, 버튼 박스 -->
+        <div id="inputBox">
+            <div class="input-form-box"><span>이메일 </span><input type="text" name="uid" class="form-control"></div>
+            <!--중복검사-->
+            <p><span></span></p>
+            <div class="input-form-box"><span>비밀번호 </span><input type="password" name="upw" class="form-control"></div>
+            <div class="input-form-box"><span>비밀번호 확인</span><input type="password" name="upw" class="form-control"></div>
+            <hr class="divider" />
+            <div class="button-login-box" >
+                <button type="button" class="btn btn-primary btn-xs" style="width:100%;">회원가입</button>
+            </div>
+            <p >
+                <a class="nav-link" th:href="@{/api/auth/signIn}">계정이 이미 있으신가요? 로그인 👉</a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+<!--<th:block th:replace="~{layouts/footer :: footer}"></th:block>-->
+</html>
