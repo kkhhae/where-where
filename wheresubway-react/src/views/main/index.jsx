@@ -1,10 +1,35 @@
 import * as React from 'react';
 import MainCss from '../../Component/main.module.css';
 import '../../Component/slide';
+import { useNavigate } from 'react-router-dom';
 
 
 
 function Main(props) {
+
+    const [keyword, setKeyword] = React.useState("");  // 이 부분 추가
+    const navigate = useNavigate();
+
+    // 검색창에 입력한 값 저장
+    const handleChange = (e) => {
+        setKeyword(e.target.value);
+    }
+
+    // 엔터키 누르면 실행
+    const handleKeyPress = (e) => { 
+        if (e.which === 13 || e.keyCode === 13) {
+            searching();
+        }
+    }
+
+    const searching = () => {
+        navigate('/map', {
+            state: {
+                keyword: keyword
+            }
+        });
+    }
+
 
   return (
 
@@ -18,7 +43,16 @@ function Main(props) {
                     </div>
                     <div className="col-lg align-self-baseline">
                         <div className="mx-auto mt-5 search-bar input-group mb-3">
-                            <input name="q" type="text" className="form-control rounded-pill" placeholder="역명을 입력해주세요! ex. 신촌 신촌역" id="keyword" />
+                            <input
+                                name="keyword"
+                                id="keyword"
+                                type="text"
+                                className="form-control rounded-pill"
+                                placeholder="2호선 역명을 입력해주세요! ex. 신촌, 역명은 제외됩니다!"
+                                value={keyword}
+                                onChange={handleChange}
+                                onKeyPress={handleKeyPress}
+                            />
                             <div className="input-group-append"></div>
                         </div>
                     </div>
@@ -42,10 +76,10 @@ function Main(props) {
 
                         <div className="slider slider-1">
                             <div className="slides">
-                                <div className="active" style={{color:'red'}}></div>
-                                <div style={{color:'blue'}}></div>
-                                <div style={{color:'green'}}></div>
-                                <div style={{color:'pink'}}></div>
+                                <div className="active" style={{color:"white"}}></div>
+                                <div style={{color:"blue"}}></div>
+                                <div style={{color:"green"}}></div>
+                                <div style={{color:"red"}}></div>
                             </div>
     
                             <div className="pages">

@@ -1,8 +1,7 @@
 import './App.css';
 import Main from './views/main';
 import Header from './views/main/Header';  
-import SignIn from './views/sign/signIn';  
-import Map from './views/map';        
+import SignIn from './views/sign/signIn';      
 
 
 import {
@@ -14,7 +13,7 @@ import {
 } from "react-router-dom";
 import Footer from './views/main/Footer';
 import SignUp from './views/sign/signUp';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import KeywordContext from './Component/useKeyword';
 import BasicMap from './Kakao/index.jsx';
 
@@ -42,7 +41,6 @@ function AppContent() {
       <Header />
       <Routes>
         <Route path="/api/auth/signIn" element={<SignIn />} />
-        {/* <Route path="/search/map" element={<Map />} /> */}
         <Route path="/api/auth/signUp" element={<SignUp />} />
         <Route path="/" element={<Main />} />
         <Route path="/map" element={<BasicMap/>}/>
@@ -69,13 +67,12 @@ export function MainNav() {
 
     }
     const map = () => {
-      navi('/search/map');
+      navi('/map');
 
     }
     const BasicMap = () => {
       navi('/test');
     }
 
-  
   return navi;
 }

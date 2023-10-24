@@ -10892,7 +10892,7 @@ hr.divider-light {
 }
 @media (min-width: 992px) {
   #mainNav {
-    box-shadow: none;
+    box-shadow:  0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     background-color: #fff;
   }
 
