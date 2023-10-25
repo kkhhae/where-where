@@ -2,9 +2,7 @@ package com.kkhhae.wheresubway.service;
 
 import com.kkhhae.wheresubway.dto.ResponseDTO;
 import com.kkhhae.wheresubway.entity.BoardEntity;
-import com.kkhhae.wheresubway.entity.PopularSearchEntity;
 import com.kkhhae.wheresubway.repository.BoardRepository;
-import com.kkhhae.wheresubway.repository.PopularSearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +17,6 @@ public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
-
-    @Autowired
-    private PopularSearchRepository popularSearchRepository;
 
     //탑3 리스트 출력(7일기준)
     public ResponseDTO<List<BoardEntity>> getTop3(){
@@ -51,20 +46,6 @@ public class BoardService {
             return ResponseDTO.setFailed("db error!");
         }
         return ResponseDTO.setSuccess("success", boardList);
-    }
-
-    //인기많은 게시글
-    public ResponseDTO<List<PopularSearchEntity>> getPopularsearchList(){
-        List<PopularSearchEntity> popularList = new ArrayList<PopularSearchEntity>();
-
-        try {
-            popularList = popularSearchRepository.findTop10ByOrderByPopularSearchCountDesc();
-        }catch (Exception e){
-            e.printStackTrace();
-            return ResponseDTO.setFailed("db error!");
-        }
-
-        return ResponseDTO.setSuccess("Success", popularList);
     }
 
 

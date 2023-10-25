@@ -2,7 +2,6 @@ package com.kkhhae.wheresubway.controller;
 
 import com.kkhhae.wheresubway.dto.ResponseDTO;
 import com.kkhhae.wheresubway.entity.BoardEntity;
-import com.kkhhae.wheresubway.entity.PopularSearchEntity;
 import com.kkhhae.wheresubway.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,11 +26,6 @@ public class BoardController {
     @GetMapping("/list")
     public ResponseDTO<List<BoardEntity>> getList(){
         return  boardService.getList();
-    }
-
-    @GetMapping("/popularsearchList")
-    public ResponseDTO<List<PopularSearchEntity>> getPopularsearchList(){
-        return boardService.getPopularsearchList();
     }
 
     @GetMapping("/search/{boardTitle}")

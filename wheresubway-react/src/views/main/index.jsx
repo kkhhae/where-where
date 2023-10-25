@@ -5,30 +5,15 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function Main(props) {
 
-    const [keyword, setKeyword] = React.useState("");  // 이 부분 추가
+function Main(props) {
     const navigate = useNavigate();
 
-    // 검색창에 입력한 값 저장
-    const handleChange = (e) => {
-        setKeyword(e.target.value);
-    }
-
-    // 엔터키 누르면 실행
-    const handleKeyPress = (e) => { 
-        if (e.which === 13 || e.keyCode === 13) {
-            searching();
-        }
-    }
-
-    const searching = () => {
+    const gotoMap = () => {
         navigate('/map', {
-            state: {
-                keyword: keyword
-            }
         });
     }
+
 
 
   return (
@@ -43,28 +28,12 @@ function Main(props) {
                     </div>
                     <div className="col-lg align-self-baseline">
                         <div className="mx-auto mt-5 search-bar input-group mb-3">
-                            <input
-                                name="keyword"
-                                id="keyword"
-                                type="text"
-                                className="form-control rounded-pill"
-                                placeholder="2호선 역명을 입력해주세요! ex. 신촌, 역명은 제외됩니다!"
-                                value={keyword}
-                                onChange={handleChange}
-                                onKeyPress={handleKeyPress}
-                            />
-                            <div className="input-group-append"></div>
+                            <a className="btn btn-light btn-xl" onClick={gotoMap} style={{width:"75%", margin:"auto"}}>검색하러가기 👉</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <br/>
-        <br/>
-        <br/><br/>
-        <br/>
-        <br/>
-
 
         <section className="page-section bg-primary" id="about">
             <div className="container px-4 px-lg-5">

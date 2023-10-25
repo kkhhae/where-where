@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 //접속제한 해제
-//@CrossOrigin(originPatterns = "http://localhost:8080")
+@CrossOrigin(originPatterns = "http://localhost:3000")
 @RestController
 @RequestMapping("/")
 public class MainController {

@@ -17,8 +17,8 @@ import java.util.Date;
 public class BoardEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int boardNumber;
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    private int boardId ;
     private String boardTitle;
     private String boardContent;
     private String boardImage;

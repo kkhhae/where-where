@@ -1,7 +1,8 @@
 import './App.css';
 import Main from './views/main';
 import Header from './views/main/Header';  
-import SignIn from './views/sign/signIn';      
+import SignIn from './views/sign/signIn';  
+
 
 
 import {
@@ -15,7 +16,7 @@ import Footer from './views/main/Footer';
 import SignUp from './views/sign/signUp';
 import { useState } from 'react';
 import KeywordContext from './Component/useKeyword';
-import BasicMap from './Kakao/index.jsx';
+import BasicMap from './Map/index.jsx';
 
 function App() {
 
@@ -35,7 +36,7 @@ function AppContent() {
   const location = useLocation();
 
   //푸터 안보일 페이지들 등록
-  const excludedPaths = ["/api/auth/signIn", "/api/auth/signUp"];
+  const excludedPaths = ["/api/auth/signIn", "/api/auth/signUp", "/map"];
   return (
     <>
       <Header />
@@ -66,13 +67,11 @@ export function MainNav() {
       navi("/");
 
     }
-    const map = () => {
-      navi('/map');
-
-    }
+    
     const BasicMap = () => {
-      navi('/test');
+      navi('/map');
     }
+
 
   return navi;
 }
