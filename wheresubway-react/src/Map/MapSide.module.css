@@ -1,0 +1,85 @@
+
+/* 사이드바 */
+.info {
+    position: fixed;
+    top: 11vh;
+    left: 1%;
+    /* height: 80vh; */
+    width: 20%;  /* 혹은 원하는 넓이로 설정 */
+    overflow-y: auto;  /* 내용이 많아지면 스크롤 가능하도록 */
+    transition: all 0.3s;  /* 부드러운 효과를 위한 트랜지션 */
+    background-Color: #f1f1f1;
+    box-Shadow: 1px 0px 5px rgba(0,0,0,0.2);
+    border: 2px ;
+    z-index: 1000;
+    text-align: center;
+}
+
+.header {
+    padding: 10px 15px;
+    background-color: #f1f1f1;
+    border: 2px solid #000;
+}
+
+.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li {
+    padding: 10px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.menu li:last-child {
+    border-bottom: none;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.menu li a:hover {
+    background-color: #e5e5e5;
+}
+
+.flexContainer {
+    display: flex;
+    align-items: center; /* 중앙 정렬 (옵션) */
+    
+}
+
+/* 사이드바 버튼*/
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-between; /* 버튼들 사이의 간격을 균등하게 */
+    align-items: center; /* 버튼들을 세로 중앙 정렬 */
+}
+
+
+.sideButton{
+    position: fixed;
+    left: 21%;
+    padding: 10px 20px;
+    background-Color: #f1f1f1;
+    /* box-Shadow: 1px 0px 5px rgba(0,0,0,0.2); */
+    margin: 10px;
+    width:10%;
+
+}
+
+/* 역정보 */
+.stationView{
+    position: fixed;
+    top: 11%;   
+    left: 33%;
+    padding: 5px 20px;
+    box-Shadow: 1px 0px 5px rgba(0,0,0,0.2);
+    background-Color: #f1f1f1;
+    border: 2px solid #000;
+    width:40%;
+}
