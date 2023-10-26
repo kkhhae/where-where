@@ -63,7 +63,7 @@ function SideButtons({ onFetchStationInfo, setKeywordForSearch, keyword}) {
             <button 
                 className={styles.sideButton}
                 style={{ zIndex: 1001, top: '35vh' }}
-                onClick={() => handleButtonClick(`주변공원`, 'play')}>
+                onClick={() => handleButtonClick(`주변정류장`, 'play')}>
                  정류장🚌
             </button>
         </div>

@@ -17,6 +17,8 @@
     //카카오맵세팅
     const [keyword, setKeyword] = useState(""); // 키워드 검색 값 상태
     const [map, setMap] = useState(null); //map세팅
+    const [showSideButtons, setShowSideButtons] = useState(false); //사이드바세팅
+
 
     //지하철정보세팅
     const [intervalId, setIntervalId] = useState(''); // interval 역정보쓸거 상태 추가(초당 검색)
@@ -84,6 +86,7 @@
     //서치버튼 실행
     const handleSearch = async () => {
       if(!keyword) return alert("검색어를 입력해주세요!");  // keyword가 없으면 함수 실행 중지
+      setShowSideButtons(true);
 
       let updatedKeyword = keyword;
      
@@ -445,12 +448,15 @@
             {/* 사이드바 버튼 클릭 시 지하철정보 */}
             <StationInfo stationInfos={stationInfos} />
             {/* 사이드바 버튼들 */}
-            <SideButtons 
-                onFetchStationInfo={fetchStationInfo} 
-                handleSearchWithKeyword={searchPlaces}
-                keyword={keyword}
-                setKeywordForSearch={setKeywordForSearch}
-            />
+            {
+                showSideButtons && <SideButtons 
+                    onFetchStationInfo={fetchStationInfo} 
+                    handleSearchWithKeyword={searchPlaces}
+                    keyword={keyword}
+                    setKeywordForSearch={setKeywordForSearch}
+                />
+            }
+
             
         </div>
         {/* end map */}
