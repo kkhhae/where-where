@@ -57,14 +57,20 @@ function SideButtons({ onFetchStationInfo, setKeywordForSearch, keyword}) {
             <button 
                 className={styles.sideButton}
                 style={{ zIndex: 1001, top: '30vh' }}
-                onClick={() => handleButtonClick(`주변공원`, 'play')}>
+                onClick={() => handleButtonClick(`주변공원`, 'park')}>
                  공원🌲
             </button>
             <button 
                 className={styles.sideButton}
                 style={{ zIndex: 1001, top: '35vh' }}
-                onClick={() => handleButtonClick(`주변정류장`, 'play')}>
+                onClick={() => handleButtonClick(`주변정류장`, 'busstop')}>
                  정류장🚌
+            </button>
+            <button 
+                className={styles.sideButton}
+                style={{ zIndex: 1001, top: '40vh' }}
+                onClick={() => handleButtonClick(`주변화장실`, 'toilet')}>
+                 화장실🚾
             </button>
         </div>
     );

@@ -32,7 +32,8 @@
 
     //메인 검색결과값 가져오기
     const location = useLocation();
-    const keywordFromFirstPage = location.state?.keyword || "";
+    const keywordFromMain = location.state?.keyword;
+    // const keywordFromFirstPage = location.state?.keyword || "";
 
     
 
@@ -50,10 +51,10 @@
         setMap(createdMap); 
      
 
-        if (keywordFromFirstPage && keywordFromFirstPage !== keyword) {
-          setKeyword(keywordFromFirstPage);
-          handleSearch(keywordFromFirstPage); // 메인 페이지에서 넘어온 키워드로 검색 실행
-        }
+        // if (keywordFromFirstPage && keywordFromFirstPage !== keyword) {
+        //   setKeyword(keywordFromFirstPage);
+        //   handleSearch(keywordFromFirstPage); // 메인 페이지에서 넘어온 키워드로 검색 실행
+        // }
 
     }, []);
 
@@ -83,6 +84,16 @@
     }, [newKeyword]); // keyword가 변경될 때마다 검색 실행
 
 
+    useEffect(() => {
+        if (keywordFromMain) {
+            // SideButtons 컴포넌트의 handleButtonClick 함수와 유사한 로직
+            setKeywordForSearch(keywordFromMain);
+        }
+    }, [keywordFromMain]);
+
+
+    /* ------------------------기능들 ------------------------- */
+ 
     //서치버튼 실행
     const handleSearch = async () => {
       if(!keyword) return alert("검색어를 입력해주세요!");  // keyword가 없으면 함수 실행 중지

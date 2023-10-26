@@ -4,7 +4,7 @@ import KeywordContext from '../../Component/useKeyword';
 import KakaoMap from '../../kakaoMapApi';
 
 
-
+//미사용
 function Station(props) {
     const {keyword, setKeyword} = useContext(KeywordContext);
     const [stationInfos, setStationInfos] = useState([]);
