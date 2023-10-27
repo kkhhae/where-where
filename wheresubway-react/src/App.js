@@ -17,6 +17,8 @@ import SignUp from './views/sign/signUp';
 import { useState } from 'react';
 import KeywordContext from './Component/useKeyword';
 import BasicMap from './Map/index.jsx';
+import GoogleSearch from './Google';
+import NaverSearch from './Naver';
 
 function App() {
 
@@ -36,7 +38,7 @@ function AppContent() {
   const location = useLocation();
 
   //푸터 안보일 페이지들 등록
-  const excludedPaths = ["/api/auth/signIn", "/api/auth/signUp", "/map"];
+  const excludedPaths = ["/api/auth/signIn", "/api/auth/signUp", "/map", '/google'];
   return (
     <>
       <Header />
@@ -45,6 +47,8 @@ function AppContent() {
         <Route path="/api/auth/signUp" element={<SignUp />} />
         <Route path="/" element={<Main />} />
         <Route path="/map" element={<BasicMap/>}/>
+        <Route path='/google' element={<GoogleSearch/>}/>
+        <Route path='/naver' element={<NaverSearch/>}/>
       </Routes>
     
       {!excludedPaths.includes(location.pathname) && <Footer />}
@@ -72,6 +76,13 @@ export function MainNav() {
       navi('/map');
     }
 
+    const Google = () => {
+      navi('/google');
+    }
+
+    const Naver= () => {
+      navi('/naver');
+    }
 
   return navi;
 }

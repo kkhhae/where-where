@@ -1,38 +1,49 @@
   import React, { useState, useEffect } from "react";
   import axios from "axios";
   import AddMapCustomControlStyle from './addMapCustomControlStyle.module';
-  import { useLocation } from "react-router-dom";
-  import styles from './MapSide.module.css';
+//   import { useLocation } from "react-router-dom";
+  import Mstyles from './MapSide.module.css';
+
 
   //컴포넌트들
   import StationInfo from './StationInfo';
   import SideButtons from './SideButtons';
+  import YoutubeInfo from "../Google/youtubeInfo";
+  import NaverSearch from "../Naver";
 
   export default function BasicMap() {
     const {kakao} = window; //카카오변수 전역설정
     const ps = new kakao.maps.services.Places();
     var markers = [];   //카카오맵 마커
-    const [stationInfos, setStationInfos] = useState([]); //역정보 담음
+
+    //역정보 세팅
+    const [stationInfos, setStationInfos] = useState([]); 
 
     //카카오맵세팅
     const [keyword, setKeyword] = useState(""); // 키워드 검색 값 상태
     const [map, setMap] = useState(null); //map세팅
     const [showSideButtons, setShowSideButtons] = useState(false); //사이드바세팅
 
-
     //지하철정보세팅
     const [intervalId, setIntervalId] = useState(''); // interval 역정보쓸거 상태 추가(초당 검색)
     const [alwaysStation, setAlwaysStation] = useState(""); //버튼(키워드설정) 눌러도 해당역 계속 재생되게
-    
+
     //사이드바 버튼 클릭 시 키워드 재설정
     const [newKeyword, setNewKeyword] = useState("");
     const setKeywordForSearch = (updatedKeyword) => {
         setNewKeyword(updatedKeyword);
     };
 
-    //메인 검색결과값 가져오기
-    const location = useLocation();
-    const keywordFromMain = location.state?.keyword;
+    //구글 api 유튜브 상태값 저장 (클릭시에 실행)
+    const [showGoogleSearch, setShowGoogleSearch] = useState(false);
+    // const [youtubeSearch, setYoutubeSearch] = useState([]);
+
+    //네이버 api 검색 상태값 저장 (클릭시에 실행)
+    const [showNaverSearch, setShowNaverSearch] = useState(false);
+
+    // // 메인 검색결과값 가져오기
+    // const location = useLocation();
+    // const keywordFromMain = location.state?.keyword;
     // const keywordFromFirstPage = location.state?.keyword || "";
 
     
@@ -58,7 +69,7 @@
 
     }, []);
 
-    // 지하철 정보 세팅용 useEffect 추가
+    // 지하철 정보 세팅용 useEffect 추가(초당 재검색)
     useEffect(() => {
         const fetchInfoInterval = setInterval(() => {
             // 지하철 정보 삭제
@@ -83,13 +94,14 @@
         }
     }, [newKeyword]); // keyword가 변경될 때마다 검색 실행
 
-
-    useEffect(() => {
-        if (keywordFromMain) {
-            // SideButtons 컴포넌트의 handleButtonClick 함수와 유사한 로직
-            setKeywordForSearch(keywordFromMain);
-        }
-    }, [keywordFromMain]);
+    
+    //메인화면 검색기능
+    // useEffect(() => {
+    //     if (keywordFromMain) {
+    //         // SideButtons 컴포넌트의 handleButtonClick 함수와 유사한 로직
+    //         setKeywordForSearch(keywordFromMain);
+    //     }
+    // }, [keywordFromMain]);
 
 
     /* ------------------------기능들 ------------------------- */
@@ -97,7 +109,7 @@
     //서치버튼 실행
     const handleSearch = async () => {
       if(!keyword) return alert("검색어를 입력해주세요!");  // keyword가 없으면 함수 실행 중지
-      setShowSideButtons(true);
+      if(keyword) setShowSideButtons(true);
 
       let updatedKeyword = keyword;
      
@@ -127,65 +139,69 @@
           return false;
       }
 
-      setKeyword(searchKeyword);
-      ps.keywordSearch(searchKeyword, placesSearchCB, {useMapBounds:true, size:5});
+      setKeyword(searchKeyword);        
+      //
+      ps.keywordSearch(searchKeyword, placesSearchCB, {useMapBounds:true, size:15});
 
     };
 
   /* --------------------역 검색 --------------------- */
 
-  //역검색 비동기호출
-  const fetchStationInfo = async () => {
-    setAlwaysStation(keyword);
-    await getStationInfo(alwaysStation);
-  };
+    //역검색 비동기호출
+    const fetchStationInfo = async () => {
+        setAlwaysStation(keyword);
+        await getStationInfo(alwaysStation);
+    };
 
-  //파싱
-  const parseXML = (xmlStr) => {
-      const dom = new DOMParser();
-      const xmlDoc = dom.parseFromString(xmlStr, "text/xml");
-      const stations = xmlDoc.getElementsByTagName("row");
-      const parsedData = Array.from(stations).map(station => {
-          return {
-              stationName: station.getElementsByTagName("statnNm")[0]?.textContent || '', //지하철 역명
-              arrivalMessage: station.getElementsByTagName("arvlMsg2")[0]?.textContent || '', //도착,출발,진입
-              subwayId: station.getElementsByTagName("subwayId")[0]?.textContent || '', //지하철 호선
-              trainLineNm: station.getElementsByTagName("trainLineNm")[0]?.textContent || '', //도착지 방면(~행 (다음역 ))
-              statnFid: station.getElementsByTagName("statnFid")[0]?.textContent || '', //이전 역 ID
-              statnTid: station.getElementsByTagName("statnTid")[0]?.textContent || '', //다음 역 ID
-              statnId: station.getElementsByTagName("statnId")[0]?.textContent || '' //현재 역 ID
-          };
-      });
-      return parsedData;
-  };
+    //파싱
+    const parseXML = (xmlStr) => {
+        const dom = new DOMParser();
+        const xmlDoc = dom.parseFromString(xmlStr, "text/xml");
+        const stations = xmlDoc.getElementsByTagName("row");
+        const parsedData = Array.from(stations).map(station => {
+        return {
+            stationName: station.getElementsByTagName("statnNm")[0]?.textContent || '', //지하철 역명
+            arrivalMessage: station.getElementsByTagName("arvlMsg2")[0]?.textContent || '', //도착,출발,진입
+            subwayId: station.getElementsByTagName("subwayId")[0]?.textContent || '', //지하철 호선
+            trainLineNm: station.getElementsByTagName("trainLineNm")[0]?.textContent || '', //도착지 방면(~행 (다음역 ))
+            statnFid: station.getElementsByTagName("statnFid")[0]?.textContent || '', //이전 역 ID
+            statnTid: station.getElementsByTagName("statnTid")[0]?.textContent || '', //다음 역 ID
+            statnId: station.getElementsByTagName("statnId")[0]?.textContent || '' //현재 역 ID
+        };
 
-  //역검색
-  const getStationInfo = async (inputValue) => {
-    if(!inputValue) return;
+        });
+        
+        return parsedData;
+    };
 
-    const API_KEY = process.env.REACT_APP_TRAIN_API;
+    //역검색
+    const getStationInfo = async (inputValue) => {
+        if(!inputValue) return;
 
-    if (inputValue.endsWith("역")) {
+        const API_KEY = process.env.REACT_APP_TRAIN_API;
+
+        if (inputValue.endsWith("역")) {
             inputValue = inputValue.substring(0, inputValue.length - 1);
         }
 
-      try {
-          const response = await axios.get(`${API_KEY}${inputValue}`);
+        try {
+            const response = await axios.get(`${API_KEY}${inputValue}`);
 
-          if (response.status >= 500) {
-              alert("서버에서 문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
-          } else if (response.status >= 400) {
-              alert("요청이 잘못되었습니다. 입력 값을 확인해주세요.");
-          } else {
-              const parsedData = parseXML(response.data);
-              console.log("지하철 : ",parsedData);
-              setStationInfos(parsedData);
+            if (response.status >= 500) {
+                alert("서버에서 문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
+            } else if (response.status >= 400) {
+                alert("요청이 잘못되었습니다. 입력 값을 확인해주세요.");
+            } else {
+                const parsedData = parseXML(response.data);
+                console.log("지하철 : ",parsedData);
+                setStationInfos(parsedData);
 
-              
-          }
-      } catch (error) {
-          console.error("API 호출 중 오류 발생:", error);
-      }
+                
+            }
+        } catch (error) {
+            console.error("API 호출 중 오류 발생:", error);
+        }
+
     };
 
 
@@ -242,47 +258,50 @@
             marker = addMarker(placePosition, i), 
             itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
 
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-        // LatLngBounds 객체에 좌표를 추가합니다
-        bounds.extend(placePosition);
+            // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+            // LatLngBounds 객체에 좌표를 추가합니다
+            bounds.extend(placePosition);
 
-        // 마커와 검색결과 항목에 mouseover 했을때
-        // 해당 장소에 인포윈도우에 장소명을 표시합니다
-        // mouseout 했을 때는 인포윈도우를 닫습니다
-        (function(marker, title) {
-            kakao.maps.event.addListener(marker, 'mouseover', function() {
-                displayInfowindow(marker, title);
-            });
+            // 마커와 검색결과 항목에 mouseover 했을때
+            // 해당 장소에 인포윈도우에 장소명을 표시합니다
+            // mouseout 했을 때는 인포윈도우를 닫습니다
+            (function(marker, title) {
+                kakao.maps.event.addListener(marker, 'mouseover', function() {
+                    displayInfowindow(marker, title);
+                });
 
-            kakao.maps.event.addListener(marker, 'mouseout', function() {
-                infowindow.close();
-            });
+                kakao.maps.event.addListener(marker, 'mouseout', function() {
+                    infowindow.close();
+                });
 
-            itemEl.onmouseover =  function () {
-                displayInfowindow(marker, title);
-            };
+                itemEl.onmouseover =  function () {
+                    displayInfowindow(marker, title);
+                };
 
-            itemEl.onmouseout =  function () {
-                infowindow.close();
-            };
-        })(marker, places[i].place_name);
+                itemEl.onmouseout =  function () {
+                    infowindow.close();
+                };
+            })(marker, places[i].place_name);
 
+                    
+            fragment.appendChild(itemEl);
+        }
+
+        // 검색결과 항목들을 검색결과 목록 Element에 추가합니다
+        listEl.appendChild(fragment);
+        menuEl.scrollTop = 0;
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+        map.setBounds(bounds);
+        console.log("map :", map);
         
-
-        fragment.appendChild(itemEl);
+        // 검색된 첫 번째 장소를 중심으로 지도를 이동합니다.
+        if(places[0]) {
+            map.setCenter(new kakao.maps.LatLng(places[0].y, places[0].x));
+        }
+    
+    
     }
-
-    // 검색결과 항목들을 검색결과 목록 Element에 추가합니다
-    listEl.appendChild(fragment);
-    menuEl.scrollTop = 0;
-
-    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-    map.setBounds(bounds);
-    console.log("map :", map);
-    
-    
-    
-  }
 
     // 검색결과 항목을 Element로 반환하는 함수입니다
     function getListItem(index, places) {
@@ -305,11 +324,14 @@
         el.innerHTML = itemStr;
         el.className = 'item';
       
-        // 여기에 클릭 이벤트 추가
+        //클릭이벤트 -> 클릭 시 맵 중앙으로 , 유튜브 영상 검색
         el.onclick = function() {
-          var placePosition = new kakao.maps.LatLng(places.y, places.x);
-          map.setCenter(placePosition);
+            var placePosition = new kakao.maps.LatLng(places.y, places.x);
+            map.setCenter(placePosition);
+            // renderGoogleSearchComponent(places.place_name);
+            // setShowGoogleSearch(true);
         }
+        
       
         return el;
       }
@@ -330,13 +352,14 @@
               image: markerImage 
           });
 
-      marker.setMap(map); // 지도 위에 마커를 표출합니다
-      markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+        marker.setMap(map); // 지도 위에 마커를 표출합니다
+        markers.push(marker);  // 배열에 생성된 마커를 추가합니다
 
-      // 마커 클릭 시 해당 장소로 지도 중심 이동
-      kakao.maps.event.addListener(marker, 'click', function() {
-        map.setCenter(position);
-      });
+        // 기존에 있는 코드 부분
+        kakao.maps.event.addListener(marker, 'click', function() {
+            map.setCenter(position); 
+        });
+
       
       return marker;
     }
@@ -396,6 +419,18 @@
       }
     }
 
+//    /* ------------------google 유튜브 서치 호출------------------*/
+//    function renderGoogleSearchComponent(keyword) {
+//     const root = ReactDOM.createRoot(document.getElementById('showGoogleSearch'));
+//     root.render(<GoogleSearch keyword={keyword} />);
+        
+//     }
+
+
+    /*------------------네이버 서치 호출------------------ */
+
+    
+
   return (
     <>
       <AddMapCustomControlStyle />
@@ -403,21 +438,21 @@
         <div id="map"  style={{width: "100%", height: "100%",position: "relative", overflow: "hidden"}}>
       
         {/* sidebar */}
-        <div className={styles.flexContainer}> 
-              <div id="info" className={styles.info}>
+        <div className={Mstyles.flexContainer}> 
+              <div id="info" className={Mstyles.info}>
                 <div id = "menu_wrap">
-                  <div id="info.header" className={styles.header}>
+                  <div id="info.header" className={Mstyles.header}>
                       <div id="info.header.main" className="main">
                           <div role="navigation">
-                              <h4 className="screen_out">검색 메뉴</h4>
-                              <ul className={styles.menu}>
+                              <h4 className="screen_out">검색</h4>
+                              <ul className={Mstyles.menu}>
                                   <li id="search.tab1" className="keyword keyword-ACTIVE">
                                   <input
                                       name="searchBar"
                                       id="keyword"
                                       type="text"
                                       className="form-control rounded-pill"
-                                      placeholder="역명을 입력해주세요!"
+                                      placeholder="지역을 입력해주세요!"
                                       onChange={(e) => {
                                           // 지하철 정보 검색 중지
                                           if (intervalId) {
@@ -465,9 +500,19 @@
                     handleSearchWithKeyword={searchPlaces}
                     keyword={keyword}
                     setKeywordForSearch={setKeywordForSearch}
+                    youtubeSearch={setShowGoogleSearch} // 이 부분을 추가
                 />
             }
 
+            {/* 관련 유튜브 영상들 */}
+            {/* <div id="showGoogleSearch" className={Gstyles.googleSearch}> */}
+            {showGoogleSearch && <YoutubeInfo youtubeSearch={youtubeSearch} />}
+            {/* </div> */}
+
+            {/* 관련 네이버 리스트들 */}
+            <div id="showNaverSearch">
+                {showNaverSearch && keyword && <NaverSearch keyword={keyword} />}
+            </div>
             
         </div>
         {/* end map */}

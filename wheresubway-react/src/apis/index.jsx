@@ -17,6 +17,7 @@ import React, { useState } from 'react'
 
 
 
+//스프링 : 회원가입
 export const signInApi = async (data) => {
     try {
         const response = await axios.post("http://localhost:8080/api/auth/signIn", data);
@@ -27,6 +28,7 @@ export const signInApi = async (data) => {
     }
 }
 
+//스프링 : 로그인
 export const signUpApi = async (data) => {
     try {
         const response = await axios.post("http://localhost:8080/api/auth/signUp", data);
@@ -37,16 +39,3 @@ export const signUpApi = async (data) => {
     }
 }
 
-
-
-// export const StationInfoSet = async (data) => {
-//     const [keyword, setKeyword] = React.useState('');
-
-//     try {
-//         const response = await axios.get("/api/getStationInfo", data);
-//         return response.data;
-//     } catch (error) {
-//         console.error(error);
-//         return null;
-//     }
-// }

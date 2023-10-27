@@ -44,7 +44,7 @@ function Main(props) {
             <div className="container px-4 px-lg-5">
                 <div className="row gx-4 gx-lg-5 justify-content-center">
                     <div className="col-lg-8 text-center">
-                        <h2 className="text-white mt-0">인기👍 핫플 역 목록</h2>
+                        <h2 className="text-white mt-0">인기 핫플 목록👍</h2>
                         <hr className="divider divider-light" />
     
 

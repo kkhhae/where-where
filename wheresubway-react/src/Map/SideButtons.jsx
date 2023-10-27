@@ -1,16 +1,19 @@
 import React, {useState} from 'react';
 import styles from './MapSide.module.css';
 
-function SideButtons({ onFetchStationInfo, setKeywordForSearch, keyword}) {
+
+function SideButtons({ onFetchStationInfo, setKeywordForSearch, keyword, youtubeSearch}) {
 
     const [clickedButton, setClickedButton] = useState(null); // null: 아무 버튼도 클릭되지 않음
+    const [showGoogleSearch, setShowGoogleSearch] = useState(false);
+
 
     // 키워드를 수정하는 함수
     const handleButtonClick = (addition, buttonType) => {
         let updatedKeyword = keyword;
 
         // 버튼의 키워드 값을 리스트로 등록
-        const allButtons = ['주변맛집', '주변주유소', '주변명소', '주변공원', '주변정류장'];
+        const allButtons = ['주변맛집', '주변명소', '주변공원', '주변주유소', '주변정류장'];
 
         // 이미 추가된 키워드를 제거
         allButtons.forEach(btn => {
@@ -45,30 +48,44 @@ function SideButtons({ onFetchStationInfo, setKeywordForSearch, keyword}) {
             <button 
                 className={styles.sideButton}
                 style={{ zIndex: 1001, top: '20vh' }}
-                onClick={() => handleButtonClick(`주변주유소`, 'play')}>
-                 주유소⛽️
-            </button>
-            <button 
-                className={styles.sideButton}
-                style={{ zIndex: 1001, top: '25vh' }}
                 onClick={() => handleButtonClick(`주변명소`, 'view')}>
                  명소🤔
             </button>
             <button 
                 className={styles.sideButton}
-                style={{ zIndex: 1001, top: '30vh' }}
+                style={{ zIndex: 1001, top: '25vh' }}
                 onClick={() => handleButtonClick(`주변공원`, 'park')}>
                  공원🌲
             </button>
             <button 
                 className={styles.sideButton}
+                style={{ zIndex: 1001, top: '30vh' }}
+                onClick={youtubeSearch}>
+                유튜브👆
+            </button>
+            {/* <button 
+                className={styles.sideButton}
+                style={{ zIndex: 1001, top: '30vh' }}
+                onClick={() => {
+                    setShowGoogleSearch(true); // props로 전달받은 함수 호출
+                }}>
+                유튜브👆
+            </button> */}
+            <button 
+                className={styles.sideButton}
                 style={{ zIndex: 1001, top: '35vh' }}
+                onClick={() => handleButtonClick(`주변주유소`, 'play')}>
+                 주유소⛽️
+            </button>
+            <button 
+                className={styles.sideButton}
+                style={{ zIndex: 1001, top: '40vh' }}
                 onClick={() => handleButtonClick(`주변정류장`, 'busstop')}>
                  정류장🚌
             </button>
             <button 
                 className={styles.sideButton}
-                style={{ zIndex: 1001, top: '40vh' }}
+                style={{ zIndex: 1001, top: '45vh' }}
                 onClick={() => handleButtonClick(`주변화장실`, 'toilet')}>
                  화장실🚾
             </button>
