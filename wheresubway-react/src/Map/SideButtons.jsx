@@ -1,35 +1,46 @@
 import React, {useState} from 'react';
 import styles from './MapSide.module.css';
+import YoutubeSearch from '../Google';
 
 
-function SideButtons({ onFetchStationInfo, setKeywordForSearch, keyword, youtubeSearch}) {
+function SideButtons({ onFetchStationInfo, setKeywordForSearch, keyword, setOnSearch }) {
 
     const [clickedButton, setClickedButton] = useState(null); // null: 아무 버튼도 클릭되지 않음
-    const [showGoogleSearch, setShowGoogleSearch] = useState(false);
-
 
     // 키워드를 수정하는 함수
-    const handleButtonClick = (addition, buttonType) => {
-        let updatedKeyword = keyword;
+    const handleButtonClick = (addition, buttonType) => {''
+        // 기존에 선택된 버튼과 현재 클릭된 버튼이 동일하다면 창을 닫습니다.
+        if (clickedButton === buttonType) {
+            setClickedButton(null);
+            setKeywordForSearch('');  // 키워드 초기화
+        }
+        else{
+            
+            let updatedKeyword = keyword;
 
-        // 버튼의 키워드 값을 리스트로 등록
-        const allButtons = ['주변맛집', '주변명소', '주변공원', '주변주유소', '주변정류장'];
+            // 버튼의 키워드 값을 리스트로 등록
+            const allButtons = ['주변맛집', '주변명소', '주변공원', '주변주유소', '주변정류장'];
 
-        // 이미 추가된 키워드를 제거
-        allButtons.forEach(btn => {
-            if (updatedKeyword.includes(btn)) {
-                updatedKeyword = updatedKeyword.replace(btn, '').trim();
-            }
-        });
+            // 이미 추가된 키워드를 제거
+            allButtons.forEach(btn => {
+                if (updatedKeyword.includes(btn)) {
+                    updatedKeyword = updatedKeyword.replace(btn, '').trim();
+                }
+            });
 
-        // 새로 누른 버튼의 키워드를 추가
-        updatedKeyword = `${updatedKeyword} ${addition}`.trim();
-        // 변경된 키워드로 설정
-        setKeywordForSearch(updatedKeyword);
-        // 클릭된 버튼 상태 업데이트
-        setClickedButton(buttonType);
+            // 새로 누른 버튼의 키워드를 추가
+            updatedKeyword = `${updatedKeyword} ${addition}`.trim();
+            // 변경된 키워드로 설정
+            setKeywordForSearch(updatedKeyword);
+            // 클릭된 버튼 상태 업데이트
+            setClickedButton(buttonType);
+
+        }
     };
 
+
+
+    
     
     return (
         <div className={styles.buttonContainer}>
@@ -57,18 +68,10 @@ function SideButtons({ onFetchStationInfo, setKeywordForSearch, keyword, youtube
                 onClick={() => handleButtonClick(`주변공원`, 'park')}>
                  공원🌲
             </button>
-            <button 
-                className={styles.sideButton}
-                style={{ zIndex: 1001, top: '30vh' }}
-                onClick={youtubeSearch}>
-                유튜브👆
-            </button>
             {/* <button 
                 className={styles.sideButton}
                 style={{ zIndex: 1001, top: '30vh' }}
-                onClick={() => {
-                    setShowGoogleSearch(true); // props로 전달받은 함수 호출
-                }}>
+                onClick={() => setOnSearch(true)}>
                 유튜브👆
             </button> */}
             <button 
@@ -89,6 +92,8 @@ function SideButtons({ onFetchStationInfo, setKeywordForSearch, keyword, youtube
                 onClick={() => handleButtonClick(`주변화장실`, 'toilet')}>
                  화장실🚾
             </button>
+
+
         </div>
     );
 }

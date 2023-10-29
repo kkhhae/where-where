@@ -1,15 +1,13 @@
   import React, { useState, useEffect } from "react";
   import axios from "axios";
   import AddMapCustomControlStyle from './addMapCustomControlStyle.module';
-//   import { useLocation } from "react-router-dom";
   import Mstyles from './MapSide.module.css';
-
 
   //컴포넌트들
   import StationInfo from './StationInfo';
   import SideButtons from './SideButtons';
-  import YoutubeInfo from "../Google/youtubeInfo";
   import NaverSearch from "../Naver";
+  import YoutubeSearch from "../Google";
 
   export default function BasicMap() {
     const {kakao} = window; //카카오변수 전역설정
@@ -35,17 +33,10 @@
     };
 
     //구글 api 유튜브 상태값 저장 (클릭시에 실행)
-    const [showGoogleSearch, setShowGoogleSearch] = useState(false);
-    // const [youtubeSearch, setYoutubeSearch] = useState([]);
+    const [onSearch, setOnSearch] = useState(false);
 
     //네이버 api 검색 상태값 저장 (클릭시에 실행)
     const [showNaverSearch, setShowNaverSearch] = useState(false);
-
-    // // 메인 검색결과값 가져오기
-    // const location = useLocation();
-    // const keywordFromMain = location.state?.keyword;
-    // const keywordFromFirstPage = location.state?.keyword || "";
-
     
 
     /* -------------------- 맵 세팅 --------------------- */
@@ -60,12 +51,6 @@
           
         const createdMap = new kakao.maps.Map(mapContainer, mapOption);
         setMap(createdMap); 
-     
-
-        // if (keywordFromFirstPage && keywordFromFirstPage !== keyword) {
-        //   setKeyword(keywordFromFirstPage);
-        //   handleSearch(keywordFromFirstPage); // 메인 페이지에서 넘어온 키워드로 검색 실행
-        // }
 
     }, []);
 
@@ -95,21 +80,16 @@
     }, [newKeyword]); // keyword가 변경될 때마다 검색 실행
 
     
-    //메인화면 검색기능
-    // useEffect(() => {
-    //     if (keywordFromMain) {
-    //         // SideButtons 컴포넌트의 handleButtonClick 함수와 유사한 로직
-    //         setKeywordForSearch(keywordFromMain);
-    //     }
-    // }, [keywordFromMain]);
-
 
     /* ------------------------기능들 ------------------------- */
  
     //서치버튼 실행
     const handleSearch = async () => {
-      if(!keyword) return alert("검색어를 입력해주세요!");  // keyword가 없으면 함수 실행 중지
-      if(keyword) setShowSideButtons(true);
+        if(!keyword) {
+            return alert("검색어를 입력해주세요!");
+         }
+         setShowSideButtons(true);
+         
 
       let updatedKeyword = keyword;
      
@@ -203,7 +183,6 @@
         }
 
     };
-
 
 
   /* --------------------카카오맵 검색 --------------------- */
@@ -328,10 +307,9 @@
         el.onclick = function() {
             var placePosition = new kakao.maps.LatLng(places.y, places.x);
             map.setCenter(placePosition);
-            // renderGoogleSearchComponent(places.place_name);
-            // setShowGoogleSearch(true);
+            setKeyword(places.place_name);
+            setOnSearch(true);
         }
-        
       
         return el;
       }
@@ -419,77 +397,73 @@
       }
     }
 
-//    /* ------------------google 유튜브 서치 호출------------------*/
-//    function renderGoogleSearchComponent(keyword) {
-//     const root = ReactDOM.createRoot(document.getElementById('showGoogleSearch'));
-//     root.render(<GoogleSearch keyword={keyword} />);
-        
-//     }
+
+
 
 
     /*------------------네이버 서치 호출------------------ */
 
     
 
-  return (
+return (
     <>
-      <AddMapCustomControlStyle />
-      <div className="map_wrap" style={{ position: "relative" }}>
+    <AddMapCustomControlStyle />
+    <div className="map_wrap" style={{ position: "relative" }}>
         <div id="map"  style={{width: "100%", height: "100%",position: "relative", overflow: "hidden"}}>
       
-        {/* sidebar */}
-        <div className={Mstyles.flexContainer}> 
-              <div id="info" className={Mstyles.info}>
-                <div id = "menu_wrap">
-                  <div id="info.header" className={Mstyles.header}>
-                      <div id="info.header.main" className="main">
-                          <div role="navigation">
-                              <h4 className="screen_out">검색</h4>
-                              <ul className={Mstyles.menu}>
-                                  <li id="search.tab1" className="keyword keyword-ACTIVE">
-                                  <input
-                                      name="searchBar"
-                                      id="keyword"
-                                      type="text"
-                                      className="form-control rounded-pill"
-                                      placeholder="지역을 입력해주세요!"
-                                      onChange={(e) => {
-                                          // 지하철 정보 검색 중지
-                                          if (intervalId) {
-                                              clearInterval(intervalId);
-                                              setIntervalId(null); // intervalId 상태 초기화
-                                          }
+            {/* sidebar */}
+            <div className={Mstyles.flexContainer}> 
+                <div id="info" className={Mstyles.info}>
+                    <div id = "menu_wrap">
+                    <div id="info.header" className={Mstyles.header}>
+                        <div id="info.header.main" className="main">
+                            <div role="navigation">
+                                <h4 className="screen_out">검색</h4>
+                                <ul className={Mstyles.menu}>
+                                    <li id="search.tab1" className="keyword keyword-ACTIVE">
+                                    <input
+                                        name="searchBar"
+                                        id="keyword"
+                                        type="text"
+                                        className="form-control rounded-pill"
+                                        placeholder="지역을 입력해주세요!"
+                                        onChange={(e) => {
+                                            // 지하철 정보 검색 중지
+                                            if (intervalId) {
+                                                clearInterval(intervalId);
+                                                setIntervalId(null); // intervalId 상태 초기화
+                                            }
 
-                                          setKeyword(e.target.value); // 키워드 상태 업데이트
-                                      }}
-                                      onKeyPress={(e) => {
-                                          if (e.which === 13 || e.keyCode === 13) handleSearch(keyword);
-                                      }}
-                                      style={{ border:"2px #000" }}
-                                  />
+                                            setKeyword(e.target.value); // 키워드 상태 업데이트
+                                        }}
+                                        onKeyPress={(e) => {
+                                            if (e.which === 13 || e.keyCode === 13) handleSearch(keyword);
+                                        }}
+                                        style={{ border:"2px #000" }}
+                                    />
 
 
-                                    <br></br>
-                                    <a className="btn btn-light" 
-                                      style={{width: "100%", border:"1px solid #919191"}}
-                                      onChange={(e) => setKeyword(e.target.value)}
-                                      onClick={() =>handleSearch(keyword)}
-                                      >검색 👉</a>
-                                  </li>
+                                        <br></br>
+                                        <a className="btn btn-light" 
+                                        style={{width: "100%", border:"1px solid #919191"}}
+                                        onChange={(e) => setKeyword(e.target.value)}
+                                        onClick={() =>handleSearch(keyword)}
+                                        >검색 👉</a>
+                                    </li>
 
-                                  <li id="search.tab5"  className="">
-                                      <a href="#" className="mainmenutab" title="검색결과"></a>
-                                      <ul id="placesList"></ul>
-                                      <ul id="pagination"></ul>
-                                  </li>
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+                                    <li id="search.tab5"  className="">
+                                        <a href="#" className="mainmenutab" title="검색결과"></a>
+                                        <ul id="placesList"></ul>
+                                        <ul id="pagination"></ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
-          </div>
-          {/* end sidebar */}
+            {/* end sidebar */}
 
             {/* 사이드바 버튼 클릭 시 지하철정보 */}
             <StationInfo stationInfos={stationInfos} />
@@ -500,14 +474,10 @@
                     handleSearchWithKeyword={searchPlaces}
                     keyword={keyword}
                     setKeywordForSearch={setKeywordForSearch}
-                    youtubeSearch={setShowGoogleSearch} // 이 부분을 추가
+                    setOnSearch={setOnSearch}
                 />
-            }
-
-            {/* 관련 유튜브 영상들 */}
-            {/* <div id="showGoogleSearch" className={Gstyles.googleSearch}> */}
-            {showGoogleSearch && <YoutubeInfo youtubeSearch={youtubeSearch} />}
-            {/* </div> */}
+            }   
+            <YoutubeSearch keyword={keyword} onSearch={onSearch} />
 
             {/* 관련 네이버 리스트들 */}
             <div id="showNaverSearch">
@@ -517,10 +487,8 @@
         </div>
         {/* end map */}
         
+      </div>
+</> 
+);
 
-    </div>
-      
-        
-    </>
-  );
 }
