@@ -2,12 +2,15 @@
   import axios from "axios";
   import AddMapCustomControlStyle from './addMapCustomControlStyle.module';
   import Mstyles from './MapSide.module.css';
+  import styles from './MapSide.module.css';
+
 
   //컴포넌트들
   import StationInfo from './StationInfo';
   import SideButtons from './SideButtons';
   import NaverSearch from "../Naver";
   import YoutubeSearch from "../Google";
+
 
   export default function BasicMap() {
     const {kakao} = window; //카카오변수 전역설정
@@ -18,9 +21,12 @@
     const [stationInfos, setStationInfos] = useState([]); 
 
     //카카오맵세팅
+
     const [keyword, setKeyword] = useState(""); // 키워드 검색 값 상태
+    
     const [map, setMap] = useState(null); //map세팅
-    const [showSideButtons, setShowSideButtons] = useState(false); //사이드바세팅
+    const [showSideButtons, setShowSideButtons] = useState(true); //사이드바세팅
+
 
     //지하철정보세팅
     const [intervalId, setIntervalId] = useState(''); // interval 역정보쓸거 상태 추가(초당 검색)
@@ -32,15 +38,17 @@
         setNewKeyword(updatedKeyword);
     };
 
-    //구글 api 유튜브 상태값 저장 (클릭시에 실행)
-    const [onSearch, setOnSearch] = useState(false);
+    // //구글 api 유튜브 상태값 저장 (클릭시에 실행)
+    const [onYoutubeSearch, setOnYoutubeSearch] = useState(false);
 
-    //네이버 api 검색 상태값 저장 (클릭시에 실행)
-    const [showNaverSearch, setShowNaverSearch] = useState(false);
-    
+    // //네이버 api 검색 상태값 저장 (클릭시에 실행)
+    const [onNaverSearch, setOnNaverSearch] = useState(false);
+ 
+   
+
 
     /* -------------------- 맵 세팅 --------------------- */
-  
+
     //기본세팅 맵
     useEffect(() => {
         var mapContainer = document.getElementById('map');
@@ -54,6 +62,8 @@
 
     }, []);
 
+
+
     // 지하철 정보 세팅용 useEffect 추가(초당 재검색)
     useEffect(() => {
         const fetchInfoInterval = setInterval(() => {
@@ -62,7 +72,7 @@
             
             // 지하철 정보 다시 가져오기
             fetchStationInfo();
-        }, 25000); // 15초마다 실행
+        }, 20000); // 15초마다 실행
 
         // 컴포넌트가 unmount될 때 interval 정리
         return () => clearInterval(fetchInfoInterval);
@@ -80,6 +90,28 @@
     }, [newKeyword]); // keyword가 변경될 때마다 검색 실행
 
     
+    /*  ------------------------ 호출용 핸들러 호출 ------------------------ */
+
+    //역검색 비동기호출 이벤트 핸들러
+    const fetchStationInfo = async () => {
+        setAlwaysStation(keyword);
+        getStationInfo(alwaysStation);
+    };
+    // 유튜브 버튼 클릭 이벤트 핸들러
+    const handleYoutubeButtonClick = () => {
+        setOnYoutubeSearch(!onYoutubeSearch); // 유튜브 검색 상태 반전
+        setOnNaverSearch(false); // 네이버 검색 상태는 항상 꺼짐
+
+    };
+
+    // 네이버 버튼 클릭 이벤트 핸들러
+    const handleNaverButtonClick = () => {
+        setOnNaverSearch(!onNaverSearch); // 네이버 검색 상태 반전
+        setOnYoutubeSearch(false); // 유튜브 검색 상태는 항상 꺼짐
+
+    };
+
+
 
     /* ------------------------기능들 ------------------------- */
  
@@ -127,13 +159,7 @@
 
   /* --------------------역 검색 --------------------- */
 
-    //역검색 비동기호출
-    const fetchStationInfo = async () => {
-        setAlwaysStation(keyword);
-        await getStationInfo(alwaysStation);
-    };
-
-    //파싱
+    //결과 파싱
     const parseXML = (xmlStr) => {
         const dom = new DOMParser();
         const xmlDoc = dom.parseFromString(xmlStr, "text/xml");
@@ -308,7 +334,6 @@
             var placePosition = new kakao.maps.LatLng(places.y, places.x);
             map.setCenter(placePosition);
             setKeyword(places.place_name);
-            setOnSearch(true);
         }
       
         return el;
@@ -465,24 +490,43 @@ return (
             </div>
             {/* end sidebar */}
 
-            {/* 사이드바 버튼 클릭 시 지하철정보 */}
+            {/* 사이드바 지하철정보 출력 */}
             <StationInfo stationInfos={stationInfos} />
-            {/* 사이드바 버튼들 */}
+
+            {/* 사이드바 기본 기능 버튼 지도 + 키워드 */}
             {
                 showSideButtons && <SideButtons 
-                    onFetchStationInfo={fetchStationInfo} 
                     handleSearchWithKeyword={searchPlaces}
                     keyword={keyword}
                     setKeywordForSearch={setKeywordForSearch}
-                    setOnSearch={setOnSearch}
                 />
             }   
-            <YoutubeSearch keyword={keyword} onSearch={onSearch} />
 
-            {/* 관련 네이버 리스트들 */}
-            <div id="showNaverSearch">
-                {showNaverSearch && keyword && <NaverSearch keyword={keyword} />}
-            </div>
+            {/* 사이드바 api 호출 버튼들 지하철, 네이버 ,유튜브 등 */}
+            <button 
+                className={styles.sideApiButton}
+                style={{ zIndex: 1001, top: '10vh' }}
+                onClick={ () => 
+                fetchStationInfo(keyword)}>
+                역정보🚉
+            </button>
+            <button 
+                className={styles.sideApiButton}
+                style={{ zIndex: 1001, top: '15vh' }}
+                onClick={handleYoutubeButtonClick}> 
+                유튜브🖥️
+            </button>
+            {onYoutubeSearch &&
+             <YoutubeSearch keyword={keyword} onYoutubeSearch={onYoutubeSearch}/>} 
+
+            <button 
+                className={styles.sideApiButton}
+                style={{ zIndex: 1001, top: '20vh' }}
+                onClick={handleNaverButtonClick}>
+                포스팅📄
+            </button>
+            {onNaverSearch &&
+             <NaverSearch keyword={keyword} onNaverSearch={onNaverSearch}/>}
             
         </div>
         {/* end map */}

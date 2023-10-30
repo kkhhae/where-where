@@ -14,7 +14,7 @@
   }
   @media (min-width: 992px) {
     .masthead {
-      height: 100vh;
+      height: 80vh;
       min-height: 40rem;
       padding-top: 4.5rem;
       padding-bottom: 0;
@@ -31,4 +31,5 @@
       font-size: 3.5rem;
     }
   }
+
   

@@ -48,7 +48,7 @@ function AppContent() {
         <Route path="/" element={<Main />} />
         <Route path="/map" element={<BasicMap/>}/>
         <Route path='/google' element={<GoogleSearch/>}/>
-        <Route path='/naver' element={<NaverSearch/>}/>
+        {/* <Route path='/naver' element={<NaverSearch/>}/> */}
       </Routes>
     
       {!excludedPaths.includes(location.pathname) && <Footer />}
@@ -80,9 +80,9 @@ export function MainNav() {
       navi('/google');
     }
 
-    const Naver= () => {
-      navi('/naver');
-    }
+    // const Naver= () => {
+    //   navi('/naver');
+    // }
 
   return navi;
 }

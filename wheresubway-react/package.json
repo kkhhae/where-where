@@ -24,9 +24,14 @@
     "react-kakao-maps-sdk": "^1.1.21",
     "react-router-dom": "^6.17.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
+    "swiper": "^11.0.3",
     "web-vitals": "^2.1.4",
     "zustand": "^4.4.3"
+    
   },
+  "proxy":"https://openapi.naver.com",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -55,4 +60,5 @@
   "main": "index.js",
   "author": "",
   "license": "ISC"
+  
 }

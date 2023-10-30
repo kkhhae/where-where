@@ -1,9 +1,7 @@
 import * as React from 'react';
 import MainCss from '../../Component/main.module.css';
-import '../../Component/slide';
 import { useNavigate } from 'react-router-dom';
-
-
+import Swiper from './slider';  
 
 
 function Main(props) {
@@ -43,33 +41,10 @@ function Main(props) {
         <section className="page-section bg-primary" id="about">
             <div className="container px-4 px-lg-5">
                 <div className="row gx-4 gx-lg-5 justify-content-center">
-                    <div className="col-lg-8 text-center">
+                    <div className="col-lg-16 text-center">
                         <h2 className="text-white mt-0">인기 핫플 목록👍</h2>
                         <hr className="divider divider-light" />
-    
-
-                        <div className="slider slider-1">
-                            <div className="slides">
-                                <div className="active" style={{color:"white"}}></div>
-                                <div style={{color:"blue"}}></div>
-                                <div style={{color:"green"}}></div>
-                                <div style={{color:"red"}}></div>
-                            </div>
-    
-                            <div className="pages">
-                                <div className="active"></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
-    
-                            <div className="side-btns">
-                                <div></div>
-                                <div></div>
-                            </div>
-                        </div>
-                        {/* <hr className="divider divider-light" /> */}
-                        {/* <p className="text-white-75 mb-4" ><a  href=''>다른역 더 보기 👉</a></p> */}
+                        <Swiper/>
                     </div>
                 </div>
             </div>
@@ -78,7 +53,7 @@ function Main(props) {
 
         <section className="page-section" id="services">
             <div className="container px-4 px-lg-5">
-                <h2 className="text-center mt-0">원하는 걸 눌러주세요! </h2>
+                <h2 className="text-center mt-0">전국 검색! 원하는 항목을 눌러주세요! </h2>
                 <hr className="divider" />
                 <div className="row gx-4 gx-lg-5">
                     <div className="col-lg-3 col-md-6 text-center" onClick={() => gotoMapWithKeyword('주변명소')} >

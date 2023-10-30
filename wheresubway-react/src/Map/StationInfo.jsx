@@ -14,6 +14,7 @@ function StationInfo({ stationInfos }) {
                     <br/>
                 </li>
             ))}
+
         </div>
        
     </>
