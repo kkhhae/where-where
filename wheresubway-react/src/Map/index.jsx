@@ -3,6 +3,7 @@
   import AddMapCustomControlStyle from './addMapCustomControlStyle.module';
   import Mstyles from './MapSide.module.css';
   import styles from './MapSide.module.css';
+  import { useLocation } from "react-router-dom";
 
 
   //컴포넌트들
@@ -20,15 +21,15 @@
     //역정보 세팅
     const [stationInfos, setStationInfos] = useState([]); 
 
-    //카카오맵세팅
-
+    //카카오맵 세팅
     const [keyword, setKeyword] = useState(""); // 키워드 검색 값 상태
-    
     const [map, setMap] = useState(null); //map세팅
-    const [showSideButtons, setShowSideButtons] = useState(true); //사이드바세팅
+
+    //사이드바 버튼 세팅
+    const [showSideButtons, setShowSideButtons] = useState(true);
 
 
-    //지하철정보세팅
+    //지하철 정보 세팅
     const [intervalId, setIntervalId] = useState(''); // interval 역정보쓸거 상태 추가(초당 검색)
     const [alwaysStation, setAlwaysStation] = useState(""); //버튼(키워드설정) 눌러도 해당역 계속 재생되게
 
@@ -38,18 +39,20 @@
         setNewKeyword(updatedKeyword);
     };
 
-    // //구글 api 유튜브 상태값 저장 (클릭시에 실행)
+    //구글 api 유튜브 상태값 저장 (클릭시에 실행)
     const [onYoutubeSearch, setOnYoutubeSearch] = useState(false);
 
-    // //네이버 api 검색 상태값 저장 (클릭시에 실행)
+    //네이버 api 검색 상태값 저장 (클릭시에 실행)
     const [onNaverSearch, setOnNaverSearch] = useState(false);
  
-   
-
+    //메인에서 클릭한 항목(전국) 키워드값 갖고오기
+    const location= useLocation();
+    const mainKeyword = location.state?.keyword;
+    console.log("main key", mainKeyword);
 
     /* -------------------- 맵 세팅 --------------------- */
 
-    //기본세팅 맵
+    //맵 기본세팅
     useEffect(() => {
         var mapContainer = document.getElementById('map');
         var mapOption = {
@@ -76,18 +79,27 @@
 
         // 컴포넌트가 unmount될 때 interval 정리
         return () => clearInterval(fetchInfoInterval);
-    }, [alwaysStation]); // keyword가 변경될 때마다 useEffect 내부의 로직을 다시 실행합니다. 필요에 따라 의존성 배열을 조절하세요.
+    }, [alwaysStation]); 
 
     //사이드바 버튼(주변 먹거리 등) 클릭 시 이벤트
     useEffect(() => {
         if (newKeyword === null) {
-            // 현재 keyword를 다시 설정하여 재검색 트리거
+            // 현재 keyword를 다시 설정하여 재검색
             setKeyword(keyword);
         } else if (newKeyword) {
             searchPlaces(newKeyword);
             setNewKeyword(null);
         }
     }, [newKeyword]); // keyword가 변경될 때마다 검색 실행
+
+    //메인에서 넘어온 키워드 이벤트
+    useEffect(() => {
+        if (mainKeyword && map) {
+            handleSearch();
+        }
+    }, []);
+    
+
 
     
     /*  ------------------------ 호출용 핸들러 호출 ------------------------ */
@@ -125,12 +137,9 @@
 
       let updatedKeyword = keyword;
      
-      // 예외: "서울 맛집" 혹은 "서울맛집"처럼 "맛집"이 들어가면 변경하지 않음
-      if (keyword.includes("맛집")) {
-          updatedKeyword = keyword;
-      }
+
       // 키워드 끝이 "역"으로 끝나지 않으면 "역"을 붙임
-      else if (!keyword.endsWith("역")) {
+      if (!keyword.endsWith("역")) {
           updatedKeyword += '역';
       } 
       setStationInfos([]);
@@ -152,7 +161,7 @@
       }
 
       setKeyword(searchKeyword);        
-      //
+      //카맵 내부함수
       ps.keywordSearch(searchKeyword, placesSearchCB, {useMapBounds:true, size:15});
 
     };

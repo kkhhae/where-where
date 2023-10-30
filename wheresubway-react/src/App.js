@@ -1,6 +1,6 @@
 import './App.css';
-import Main from './views/main';
-import Header from './views/main/Header';  
+import Main from './Main';
+import Header from './Main/Header';  
 import SignIn from './views/sign/signIn';  
 
 
@@ -12,7 +12,7 @@ import {
   useNavigate,
   useLocation
 } from "react-router-dom";
-import Footer from './views/main/Footer';
+import Footer from './Main/Footer';
 import SignUp from './views/sign/signUp';
 import { useState } from 'react';
 import KeywordContext from './Component/useKeyword';
