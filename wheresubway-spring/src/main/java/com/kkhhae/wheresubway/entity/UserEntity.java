@@ -15,19 +15,17 @@ import java.util.List;
 @Data
 @Builder
 @NoArgsConstructor
-@Entity(name="Users")
-@Table(name="Users")
+@Entity(name = "users")
+@Table(name = "users")
 public class UserEntity implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.AUTO )
     private int userId;
     private String userEmail;
     private String userPassword;
     private String userNickname;
-    private String userPhoneNumber;
     private String userAddress;
-    private String userProfile;
     private UserRole role_access;   //사용자,관리자
     private UserRole role_status;   //온라인,오프라인
 
@@ -36,7 +34,6 @@ public class UserEntity implements UserDetails {
         this.userEmail = dto.getUserEmail();
         this.userPassword = dto.getUserPassword();
         this.userNickname = dto.getUserNickname();
-        this.userPhoneNumber = dto.getUserPhoneNumber();
         this.userAddress = dto.getUserAddress() + " " + dto.getUserAddressDetail();
     }
 

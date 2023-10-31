@@ -6,13 +6,15 @@ import com.kkhhae.wheresubway.dto.SignupDTO;
 import com.kkhhae.wheresubway.entity.UserEntity;
 import com.kkhhae.wheresubway.repository.UserRepository;
 import com.kkhhae.wheresubway.service.AuthService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
+@CrossOrigin(originPatterns = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/auth")
+@Slf4j
 public class AuthController {
 
     @Autowired

@@ -1,10 +1,6 @@
 import './App.css';
 import Main from './Main';
-import Header from './Main/Header';  
-import SignIn from './views/sign/signIn';  
-
-
-
+import Header from './Main/Header';   
 import {
   BrowserRouter as Router,
   Route,
@@ -13,12 +9,13 @@ import {
   useLocation
 } from "react-router-dom";
 import Footer from './Main/Footer';
-import SignUp from './views/sign/signUp';
 import { useState } from 'react';
 import KeywordContext from './Component/useKeyword';
 import BasicMap from './Map/index.jsx';
 import GoogleSearch from './Google';
-import NaverSearch from './Naver';
+import SignIn from './Sign/SignIn';
+import SignUp from './Sign/SignUp';
+
 
 function App() {
 
@@ -44,7 +41,7 @@ function AppContent() {
       <Header />
       <Routes>
         <Route path="/api/auth/signIn" element={<SignIn />} />
-        <Route path="/api/auth/signUp" element={<SignUp />} />
+        <Route path="/api/auth/signUp" element={<SignUp/>} />
         <Route path="/" element={<Main />} />
         <Route path="/map" element={<BasicMap/>}/>
         <Route path='/google' element={<GoogleSearch/>}/>
@@ -65,11 +62,9 @@ export function MainNav() {
 
     const signIn = () => {
       navi("/signIn");
-
     }
     const main = () => {
       navi("/");
-
     }
     
     const BasicMap = () => {
@@ -79,10 +74,6 @@ export function MainNav() {
     const Google = () => {
       navi('/google');
     }
-
-    // const Naver= () => {
-    //   navi('/naver');
-    // }
 
   return navi;
 }

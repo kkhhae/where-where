@@ -10,15 +10,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "Comment")
+@Entity(name = "comments")
 @Table(name="comments")
 public class CommentEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int commentId;
-    private int boardNumber;
-    private String userEmail;
+    private int boardId;
+    private int userId;
     private String commentUserProfile;
     private String commentUserNickname;
     private String commentWriteDate;

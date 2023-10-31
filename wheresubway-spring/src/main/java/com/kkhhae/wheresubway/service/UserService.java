@@ -26,7 +26,6 @@ public class UserService {
                 return ResponseDTO.setFailed("not exist user");
             }
             userEntity.setUserNickname(userNickname);
-            userEntity.setUserProfile(userProfile);
 
             userRepository.save(userEntity);
         }catch (Exception e){

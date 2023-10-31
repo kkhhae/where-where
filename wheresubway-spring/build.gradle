@@ -42,6 +42,10 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
+	// https://mvnrepository.com/artifact/com.oracle.jdbc/ojdbc10
+//	implementation group: 'com.oracle.jdbc', name: 'ojdbc10', version: '19.3.0.0'
+
+
 
 }
 

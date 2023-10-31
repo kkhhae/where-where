@@ -12,12 +12,12 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name="Board")
-@Table(name="board")
+@Entity(name="boards")
+@Table(name="boards")
 public class BoardEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.AUTO )
     private int boardId ;
     private String boardTitle;
     private String boardContent;

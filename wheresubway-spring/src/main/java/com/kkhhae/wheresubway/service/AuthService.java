@@ -1,5 +1,6 @@
 package com.kkhhae.wheresubway.service;
 
+import com.kkhhae.wheresubway.Role.UserRole;
 import com.kkhhae.wheresubway.dto.ResponseDTO;
 import com.kkhhae.wheresubway.dto.SignInDTO;
 import com.kkhhae.wheresubway.dto.SignInResponseDTO;
@@ -34,6 +35,7 @@ public class AuthService {
         String userPassword = dto.getUserPassword();
         String userPasswordCheck = dto.getUserPasswordCheck();
 
+
         //이메일 중복체크 (try-catch 예외처리)
         try {
             if(userRepository.existsById(userEmail)){
@@ -55,6 +57,8 @@ public class AuthService {
         userEntity.setUserPassword(passwordEncoder.encode(userPassword));
 
         try {
+            userEntity.setRole_access(UserRole.USER);
+            userEntity.setRole_status(UserRole.ONLINE);
             userRepository.save(userEntity);
         }catch (Exception e){
             return ResponseDTO.setFailed("database error");
