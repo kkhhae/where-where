@@ -140,7 +140,6 @@ app.get('/sse', (req, res) => {
   });
   rl.question('서버 전송을 중단하려면 "stop"을 입력하세요:\n', input => {
     if (input === 'stop') {
-      clearInterval(intervalId);
       rl.close();
       res.end();
     }
