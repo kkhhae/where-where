@@ -15,10 +15,11 @@ import BasicMap from './Map/index.jsx';
 import GoogleSearch from './Google';
 import SignIn from './Sign/SignIn';
 import SignUp from './Sign/SignUp';
+import SignFindId from './Sign/SignFindId';
 
 
 function App() {
-
+  
   const [keyword, setKeyword] = useState('');
 
   return (
@@ -44,8 +45,8 @@ function AppContent() {
         <Route path="/api/auth/signUp" element={<SignUp/>} />
         <Route path="/" element={<Main />} />
         <Route path="/map" element={<BasicMap/>}/>
-        <Route path='/google' element={<GoogleSearch/>}/>
-        {/* <Route path='/naver' element={<NaverSearch/>}/> */}
+        <Route path='/api/auth/signFind' element={<SignFindId/>}/>
+
       </Routes>
     
       {!excludedPaths.includes(location.pathname) && <Footer />}
@@ -60,9 +61,6 @@ export default App;
 export function MainNav() {
     const navi = useNavigate();
 
-    const signIn = () => {
-      navi("/signIn");
-    }
     const main = () => {
       navi("/");
     }
@@ -73,6 +71,16 @@ export function MainNav() {
 
     const Google = () => {
       navi('/google');
+    }
+    
+    const signUp = () => {
+      navi("/signUp");
+    }
+    const signFindId = () => {
+      navi("/signUp");
+    }
+    const signIn = () => {
+      navi("/signIn");
     }
 
   return navi;

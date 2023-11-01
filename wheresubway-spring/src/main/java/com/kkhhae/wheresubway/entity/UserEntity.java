@@ -1,6 +1,7 @@
 package com.kkhhae.wheresubway.entity;
 
 import com.kkhhae.wheresubway.Role.UserRole;
+import com.kkhhae.wheresubway.dto.SignFindDTO;
 import com.kkhhae.wheresubway.dto.SignupDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,25 +25,34 @@ public class UserEntity implements UserDetails {
     private int userId;
     private String userEmail;
     private String userPassword;
+    private String userPasswordCheck;
     private String userNickname;
     private String userAddress;
+
+
+    @Enumerated(EnumType.STRING)
     private UserRole role_access;   //사용자,관리자
+    @Enumerated(EnumType.STRING)
     private UserRole role_status;   //온라인,오프라인
 
     //초기화
     public UserEntity(SignupDTO dto){
         this.userEmail = dto.getUserEmail();
         this.userPassword = dto.getUserPassword();
+        this.userPasswordCheck = dto.getUserPasswordCheck();
         this.userNickname = dto.getUserNickname();
         this.userAddress = dto.getUserAddress() + " " + dto.getUserAddressDetail();
     }
 
+    public UserEntity(SignFindDTO dto){
+        this.userPassword = dto.getUserPassword();
+    }
 
 
     //시큐리티 설정
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("user"));
+        return List.of(new SimpleGrantedAuthority("users"));
     }
 
     @Override

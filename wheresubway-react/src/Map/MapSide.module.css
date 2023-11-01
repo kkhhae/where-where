@@ -63,22 +63,22 @@
 
 .sideButton{
     position: fixed;
-    right: 1%;
+    left: 20%;
     padding: 5px 5px;
     background-Color: #f1f1f1;
     /* box-Shadow: 1px 0px 5px rgba(0,0,0,0.2); */
     /* margin: 5px; */
-    width:10vh;
+    width:15vh;
 
 }
 .sideApiButton{
     position: fixed;
-    right: 10%;
+    left: 30%;
     padding: 5px 5px;
     background-Color: #f1f1f1;
     /* box-Shadow: 1px 0px 5px rgba(0,0,0,0.2); */
     /* margin: 5px; */
-    width:10vh;
+    width:15vh;
 
 }
 
@@ -86,8 +86,8 @@
 /* 역정보 */
 .stationView{
     position: fixed;
-    top: 11%;   
-    right: 20%;
+    top: 10%;   
+    right: 45%;
     padding: 5px 20px;
     box-Shadow: 1px 0px 5px rgba(0,0,0,0.2);
     background-Color: #f1f1f1;

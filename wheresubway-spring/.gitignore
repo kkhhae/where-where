@@ -5,8 +5,8 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-## 카카오 api Role숨기기
-/src/main/java/com/kkhhae/wheresubway/Role/ApiKey.java
+
+
 
 ### STS ###
 .apt_generated
@@ -28,6 +28,9 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+
+#properties with api key#
+application-secret.properties
 
 ### NetBeans ###
 /nbproject/private/

@@ -433,6 +433,11 @@
 
 
 
+    const resetClick = () => {
+        // 페이지를 새로 고침
+        window.location.reload();
+      }
+      
 
 
     /*------------------네이버 서치 호출------------------ */
@@ -443,10 +448,10 @@ return (
     <>
     <AddMapCustomControlStyle />
     <div className="map_wrap" style={{ position: "relative" }}>
+        
         <div id="map"  style={{width: "100%", height: "100%",position: "relative", overflow: "hidden"}}>
-      
-            {/* sidebar */}
-            <div className={Mstyles.flexContainer}> 
+      {/* sidebar */}
+      <div className={Mstyles.flexContainer}> 
                 <div id="info" className={Mstyles.info}>
                     <div id = "menu_wrap">
                     <div id="info.header" className={Mstyles.header}>
@@ -537,6 +542,14 @@ return (
             {onNaverSearch &&
              <NaverSearch keyword={keyword} onNaverSearch={onNaverSearch}/>}
             
+            <button 
+                className={styles.sideApiButton}
+                style={{ zIndex: 1060, top: '90vh' , left:'40%', width:'20%', position: 'absolute', background:'black', color: 'white'}}
+                onClick={resetClick}> 
+                리셋! 고장나면 눌러주세요!
+            </button>
+            {onYoutubeSearch &&
+             <YoutubeSearch keyword={keyword} onYoutubeSearch={onYoutubeSearch}/>} 
         </div>
         {/* end map */}
         

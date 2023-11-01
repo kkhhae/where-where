@@ -34,19 +34,19 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	//시큐리티 버전6
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
+	//jjwt 토큰
 	implementation group: 'io.jsonwebtoken', name: 'jjwt', version : '0.9.1'
 	implementation 'javax.xml.bind:jaxb-api:2.3.1'
 
-	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	//jdbc 세팅
+	implementation group: 'com.oracle.jdbc', name: 'ojdbc10', version: '19.3.0.0'
 
-	// https://mvnrepository.com/artifact/com.oracle.jdbc/ojdbc10
-//	implementation group: 'com.oracle.jdbc', name: 'ojdbc10', version: '19.3.0.0'
-
-
-
+	//이메일관련 추가
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
 
 tasks.named('test') {
