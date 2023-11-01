@@ -1,0 +1,14 @@
+.naverSearch{
+
+    position: fixed;
+    top: 30%;
+    left: 30%;
+    height: 60%;
+    width: 60%; 
+    background-Color: #f1f1f1;
+    box-Shadow: 1px 0px 5px rgba(0,0,0,0.2);
+    border: 2px ;
+    z-index: 1051;
+    overflow: scroll;
+
+}

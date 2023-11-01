@@ -1,0 +1,52 @@
+/* 기본 스타일 */
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; 
+    height: 300px;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.swiper-slide:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s;
+}
+
+.swiper-pagination-bullet {
+    background-color: #888;
+    width: 12px;
+    height: 12px;
+    opacity: 0.9;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #333;
+}
+
+/* 화면 너비가 992px 이상일 때 */
+@media (min-width: 992px) {
+    .swiper-slide {
+        width: 100%; /* 예를 들어 화면의 80%를 사용하도록 변경 */
+    }
+}
+
+/* 화면 너비가 1200px 이상일 때 */
+@media (min-width: 1200px) {
+    .swiper-slide {
+        width: 100%; /* 1200px로 고정될 수 있도록 변경 */
+    }
+}

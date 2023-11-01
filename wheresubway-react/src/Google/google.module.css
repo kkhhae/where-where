@@ -1,0 +1,23 @@
+.videoItem {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+    z-index: 1050;
+    height: 100%;
+    width: 100%;
+}
+
+.showYoutubeSearch{
+
+    position: fixed;
+    top: 30%;
+    left:30%;
+    height: 40%;
+    width: 60%; 
+    background-Color: #f1f1f1;
+    box-Shadow: 1px 0px 5px rgba(0,0,0,0.2);
+    border: 2px ;
+    z-index: 1051;
+
+
+}

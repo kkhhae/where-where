@@ -1,0 +1,32 @@
+/* style.css */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    text-align: center;
+    
+  }
+  
+  th, td {
+    border: 1px solid #000; /* 검은 테두리 색상 */
+    padding: 8px;
+    text-align: center;
+    background-color: #f2f2f274; /* 갈색 배경 색상 */
+    color: #000; /* 흰색 텍스트 색상 */
+  }
+  
+  th {
+    background-color: #ac744c;
+    font-weight: vold;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f274;
+  }
+  
+  /* 변동폭이 -1 또는 +1 일때 흰색 배경 색상 */
+  tr.positive-change {
+    background-color: #7e451d;
+    color: #fff; /* 검은색 텍스트 색상 */
+  }
+  
