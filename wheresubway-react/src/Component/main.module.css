@@ -6,7 +6,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: scroll;
-    background-size: cover;
+    background-size: full;
 
   }
   .masthead h1, #masthead .h1 {
@@ -14,10 +14,10 @@
   }
   @media (min-width: 992px) {
     .masthead {
-      height: 40vh;
-      min-height: 30rem;
-      padding-top: 0rem;
-      /* padding-bottom:   rem; */
+      height: 100vh;
+      min-height: 40rem;
+      padding-top: 4.5rem;
+      padding-bottom: 0;
     }
     .masthead p {
       font-size: 1.15rem;
@@ -31,5 +31,4 @@
       font-size: 3.5rem;
     }
   }
-
   
