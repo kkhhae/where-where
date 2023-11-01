@@ -1,10 +1,6 @@
 import './App.css';
-import Main from './views/main';
-import Header from './views/main/Header';  
-import SignIn from './views/sign/signIn';  
-import Map from './views/map';        
-
-
+import Main from './Main';
+import Header from './Main/Header';   
 import {
   BrowserRouter as Router,
   Route,
@@ -12,11 +8,14 @@ import {
   useNavigate,
   useLocation
 } from "react-router-dom";
-import Footer from './views/main/Footer';
-import SignUp from './views/sign/signUp';
-import { useContext, useState } from 'react';
+import Footer from './Main/Footer';
+import { useState } from 'react';
 import KeywordContext from './Component/useKeyword';
-import BasicMap from './Kakao/index.jsx';
+import BasicMap from './Map/index.jsx';
+
+import SignIn from './Sign/SignIn';
+import SignUp from './Sign/SignUp';
+import SignFindId from './Sign/SignFindId'
 
 function App() {
 
@@ -36,16 +35,17 @@ function AppContent() {
   const location = useLocation();
 
   //푸터 안보일 페이지들 등록
-  const excludedPaths = ["/api/auth/signIn", "/api/auth/signUp"];
+  const excludedPaths = ["/api/auth/signIn", "/api/auth/signUp", '/map', '/api/auth/signFind'];
   return (
     <>
       <Header />
       <Routes>
-        <Route path="/api/auth/signIn" element={<SignIn />} />
-        {/* <Route path="/search/map" element={<Map />} /> */}
+        <Route path="/api/auth/signIn" element={<SignIn/>} />
         <Route path="/api/auth/signUp" element={<SignUp />} />
+        <Route path="/api/auth/signFind" element={<SignFindId />} />
         <Route path="/" element={<Main />} />
         <Route path="/map" element={<BasicMap/>}/>
+        
       </Routes>
     
       {!excludedPaths.includes(location.pathname) && <Footer />}
@@ -60,20 +60,21 @@ export default App;
 export function MainNav() {
     const navi = useNavigate();
 
-    const signIn = () => {
-      navi("/signIn");
-
-    }
     const main = () => {
       navi("/");
 
     }
     const map = () => {
-      navi('/search/map');
-
+      navi('/map');
     }
-    const BasicMap = () => {
-      navi('/test');
+    const signUp = () => {
+      navi("/signUp");
+    }
+    const signFindId = () => {
+      navi("/signUp");
+    }
+    const signIn = () => {
+      navi("/signIn");
     }
 
   

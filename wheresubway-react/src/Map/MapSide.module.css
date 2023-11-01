@@ -3,7 +3,7 @@
 .info {
     position: fixed;
     top: 11vh;
-    left: 1%;
+    left: 1vh;
     height: 80vh;
     width: 35vh;  /* 혹은 원하는 넓이로 설정 */
     overflow-y: auto;  /* 내용이 많아지면 스크롤 가능하도록 */
@@ -63,22 +63,23 @@
 
 .sideButton{
     position: fixed;
-    left: 20%;
+    left: 19%;
     padding: 5px 5px;
+
     background-Color: #f1f1f1;
     /* box-Shadow: 1px 0px 5px rgba(0,0,0,0.2); */
     /* margin: 5px; */
-    width:15vh;
+    width:10vh;
 
 }
 .sideApiButton{
     position: fixed;
-    left: 30%;
+    left: 25%;
     padding: 5px 5px;
     background-Color: #f1f1f1;
     /* box-Shadow: 1px 0px 5px rgba(0,0,0,0.2); */
     /* margin: 5px; */
-    width:15vh;
+    width:10vh;
 
 }
 
@@ -87,7 +88,7 @@
 .stationView{
     position: fixed;
     top: 10%;   
-    right: 45%;
+    left: 45%;
     padding: 5px 20px;
     box-Shadow: 1px 0px 5px rgba(0,0,0,0.2);
     background-Color: #f1f1f1;

@@ -24,6 +24,8 @@
     "web-vitals": "^2.1.4",
     "zustand": "^4.4.3"
   },
+  "proxy": "https://openapi.naver.com"
+  ,
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

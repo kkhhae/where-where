@@ -18,22 +18,22 @@ function Main() {
     }
 
     const gotoMapWithKeyword = (keyword) => {
+
+        alert("업데이트 예정입니다. 맵으로 이동합니다.")
         navigate('/map', {
-            state: { 
-                keyword: keyword 
-            }
         });
+        // navigate('/map', {
+        //     state: { 
+        //         keyword: keyword 
+        //     }
+        // });
     }
 
     const addPlace = () => {
-        if(cookie){
+    
+            alert("업데이트 예정입니다.")
+            // navigate('/api/auth/signIn')
 
-            navigate('/addPlace')
-        }
-        else{
-            alert("로그인 후 이용가능합니다!")
-            navigate('/api/auth/signIn')
-        }
 
     }
 
@@ -47,11 +47,11 @@ function Main() {
                         <h1 className="text-white font-weight-bold">어디? 어디!</h1>
                         <hr className="divider" />
                     </div>
-                    <div className="col-lg align-self-baseline">
+                    {/* <div className="col-lg align-self-baseline">
                         <div className="mx-auto mt-5 search-bar input-group mb-3">
-                            <a className="btn btn-light btn-xl" onClick={gotoMap} style={{width:"75%", margin:"auto"}}>검색하러가기 👉</a>
+                            <a className="btn btn-light btn-xl" onClick={gotoMap} style={{width:"50%", margin:"auto"}}>검색하러가기 👉</a>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@ function Main() {
                 <h2 className="text-center mt-0">전국 검색! 원하는 항목을 눌러주세요! </h2>
                 <hr className="divider" />
                 <div className="row gx-4 gx-lg-5">
-                    <div className="col-lg-3 col-md-6 text-center" onClick={() => ('주변명소')} >
+                    <div className="col-lg-3 col-md-6 text-center" onClick={() => gotoMapWithKeyword('주변명소')} >
                         <div className="mt-5">
                             <div className="mb-2"><i className="bi-gem fs-1 text-primary"></i></div>
                             <h3 className="h4 mb-2">놀거리</h3>
