@@ -38,16 +38,12 @@ export const signFindIdApi = async (data) => {
     }
 
 }
-//스프링 : 비밀번호찾기
-
-
 
 
 //네이버 이메일 인증
 export const EmailAccess = async(data) => {
-    console.log("Email인증요청!");
+    console.log("Email인증요청!", data);
     try {
-
         const response = await axios.post("http://localhost:4000/api/emailAccess", data);
         alert("인증번호 전송!");
         return response.data;

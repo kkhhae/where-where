@@ -62,7 +62,7 @@ export default function SignFindId(props) {
             userEmailCheckInput
         };
 
-        const signFindResponse = await signFindIdApi(data);
+        const signFindResponse = await EmailAccess(data);
         console.log(signFindResponse)
 
         if (!signFindResponse) {

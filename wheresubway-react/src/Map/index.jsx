@@ -28,7 +28,6 @@
     //사이드바 버튼 세팅
     const [showSideButtons, setShowSideButtons] = useState(true);
 
-
     //지하철 정보 세팅
     const [intervalId, setIntervalId] = useState(''); // interval 역정보쓸거 상태 추가(초당 검색)
     const [alwaysStation, setAlwaysStation] = useState(""); //버튼(키워드설정) 눌러도 해당역 계속 재생되게
@@ -48,7 +47,7 @@
     //메인에서 클릭한 항목(전국) 키워드값 갖고오기
     const location= useLocation();
     const mainKeyword = location.state?.keyword;
-    console.log("main key", mainKeyword);
+
 
     /* -------------------- 맵 세팅 --------------------- */
 
@@ -59,7 +58,7 @@
             center: new kakao.maps.LatLng(37.5558353, 126.937324),
             level: 2
         }; 
-          
+        
         const createdMap = new kakao.maps.Map(mapContainer, mapOption);
         setMap(createdMap); 
 
@@ -75,7 +74,7 @@
             
             // 지하철 정보 다시 가져오기
             fetchStationInfo();
-        }, 20000); // 15초마다 실행
+        }, 5000); // 15초마다 실행 -> 5초로 해둠
 
         // 컴포넌트가 unmount될 때 interval 정리
         return () => clearInterval(fetchInfoInterval);
@@ -83,6 +82,7 @@
 
     //사이드바 버튼(주변 먹거리 등) 클릭 시 이벤트
     useEffect(() => {
+
         if (newKeyword === null) {
             // 현재 keyword를 다시 설정하여 재검색
             setKeyword(keyword);
@@ -154,13 +154,16 @@
       if(!searchKeyword) return;
 
       console.log("검색 키워드:", searchKeyword);
+      
 
       if (!searchKeyword.replace(/^\s+|\s+$/g, '')) {
           alert('검색어를 입력해주세요!');
           return false;
       }
 
-      setKeyword(searchKeyword);        
+      setKeyword(searchKeyword);    
+      removeMarker();   
+    //   getMarkerImage(searchKeyword); 
       //카맵 내부함수
       ps.keywordSearch(searchKeyword, placesSearchCB, {useMapBounds:true, size:15});
 
@@ -320,6 +323,7 @@
     // 검색결과 항목을 Element로 반환하는 함수입니다
     function getListItem(index, places) {
 
+
         var el = document.createElement('li'),
         itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
                     '<div class="info">' +
@@ -348,12 +352,43 @@
         return el;
       }
       
+    // // 이미지 경로를 키워드에 따라 동적으로 설정
+    // function getMarkerImage(searchKeyword)   {
+
+    //     console.log("marker set",searchKeyword);
+    //     let markerImageSrc = '';
+
+    //     // 키워드에 따라 마커 이미지 선택
+    //     if (searchKeyword.includes('주변맛집')) {
+    //         markerImageSrc = 'https://img.icons8.com/3d-fluency/94/hamburger.png';
+    //     }
+    //     else if (searchKeyword.includes('주변명소')) {
+    //         markerImageSrc = 'https://img.icons8.com/3d-fluency/94/big-ben.png';
+    //     } 
+    //     else if (searchKeyword.includes('주변공원')) {
+    //         markerImageSrc = 'https://img.icons8.com/3d-fluency/94/coniferous-tree.png';
+    //     } 
+    //     //기본
+    //     else {
+    //         markerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png';
+    //     }
+       
+
+    //     return markerImageSrc;
+    // }
+
+
+
 
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     function addMarker(position, idx, title) {
-      var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
-          imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
-          imgOptions =  {
+
+        // var markerImageSrc = getMarkerImage(keyword);
+        
+        // var imageSrc = markerImageSrc
+        var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png';
+        var imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
+            imgOptions =  {
               spriteSize : new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
               spriteOrigin : new kakao.maps.Point(0, (idx*46)+10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
               offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
@@ -364,8 +399,14 @@
               image: markerImage 
           });
 
+
         marker.setMap(map); // 지도 위에 마커를 표출합니다
         markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+
+        // // 기존 마커의 이미지를 키워드에 맞춰 업데이트
+        // if (markers.length > 0) {
+        //     markers[0].setImage(new kakao.maps.MarkerImage(markerImageSrc, imageSize, imgOptions));
+        // }
 
         // 기존에 있는 코드 부분
         kakao.maps.event.addListener(marker, 'click', function() {
@@ -547,9 +588,7 @@ return (
                 style={{ zIndex: 1060, top: '90vh' , left:'40%', width:'20%', position: 'absolute', background:'black', color: 'white'}}
                 onClick={resetClick}> 
                 리셋! 고장나면 눌러주세요!
-            </button>
-            {onYoutubeSearch &&
-             <YoutubeSearch keyword={keyword} onYoutubeSearch={onYoutubeSearch}/>} 
+            </button>&
         </div>
         {/* end map */}
         

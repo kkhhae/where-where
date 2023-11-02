@@ -131,7 +131,7 @@ app.get('/sse', (req, res) => {
     });
   };
 
-  const intervalId = setInterval(sendRankingData, 5000); // 5초에 한 번 데이터 업데이트
+  const intervalId = setInterval(sendRankingData, 8000); // 5초에 한 번 데이터 업데이트
 
   // stop 명령을 입력하면 클라이언트에게 전송 중단
   const rl = readline.createInterface({

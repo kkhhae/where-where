@@ -42,7 +42,7 @@
   --bs-danger: #dc3545;
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
-  --bs-primary-rgb: 244, 98, 58;
+  --bs-primary-rgb: 102, 102, 102;
   --bs-secondary-rgb: 108, 117, 125;
   --bs-success-rgb: 25, 135, 84;
   --bs-info-rgb: 13, 202, 240;
@@ -6660,6 +6660,8 @@ textarea.form-control-lg {
 .text-bg-primary {
   color: #fff !important;
   background-color: RGBA(244, 98, 58, var(--bs-bg-opacity, 1)) !important;
+
+ 
 }
 
 .text-bg-secondary {
@@ -6698,7 +6700,7 @@ textarea.form-control-lg {
 }
 
 .link-primary {
-  color: #f4623a !important;
+  color: #f4623d !important;
 }
 .link-primary:hover, .link-primary:focus {
   color: #c34e2e !important;
@@ -8127,9 +8129,12 @@ textarea.form-control-lg {
   --bs-text-opacity: 1;
 }
 
+/* 메인 페이지 클래스들  */
 .bg-primary {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+  /* background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important; */
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%) !important;
+  background-image: url("../../public/statics//assets/img/com/train-top.jpg");
 }
 
 .bg-secondary {

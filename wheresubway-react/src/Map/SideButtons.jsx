@@ -1,8 +1,6 @@
 import React, { useState} from 'react';
 import styles from './MapSide.module.css';
 
-
-
 function SideButtons({ setKeywordForSearch, keyword }) {
 
     const [clickedButton, setClickedButton] = useState(null); // null: 아무 버튼도 클릭되지 않음
@@ -29,7 +27,7 @@ function SideButtons({ setKeywordForSearch, keyword }) {
                     updatedKeyword = updatedKeyword.replace(btn, '').trim();
                 }
             });
-
+            
             // 새로 누른 버튼의 키워드를 추가
             updatedKeyword = `${updatedKeyword} ${addition}`.trim();
             // 변경된 키워드로 설정

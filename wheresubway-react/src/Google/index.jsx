@@ -12,7 +12,7 @@ function YoutubeSearch({ keyword, onYoutubeSearch }) {
             console.log('유튜브서치!')
             getYoutubeVideos(keyword);
         }
-    }, [onYoutubeSearch, keyword]);
+    }, []);
     
 
     // 검색 함수
