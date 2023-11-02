@@ -74,7 +74,7 @@
             
             // 지하철 정보 다시 가져오기
             fetchStationInfo();
-        }, 5000); // 15초마다 실행 -> 5초로 해둠
+        }, 15000); // 15초마다 실행 -> 5초로 해둠
 
         // 컴포넌트가 unmount될 때 interval 정리
         return () => clearInterval(fetchInfoInterval);

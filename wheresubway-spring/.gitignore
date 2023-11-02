@@ -31,6 +31,7 @@ out/
 
 #properties with api key#
 application-secret.properties
+/src/main/java/com/kkhhae/wheresubway/Role/ApiKey.java
 
 ### NetBeans ###
 /nbproject/private/

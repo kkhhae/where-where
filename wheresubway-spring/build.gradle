@@ -29,6 +29,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.1'
 
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -43,10 +44,13 @@ dependencies {
 	implementation 'javax.xml.bind:jaxb-api:2.3.1'
 
 	//jdbc 세팅
-	implementation group: 'com.oracle.jdbc', name: 'ojdbc10', version: '19.3.0.0'
+//	implementation group: 'com.oracle.jdbc', name: 'ojdbc10', version: '19.3.0.0'
+	// Oracle JDBC 드라이버 의존성
+	implementation group: 'com.oracle.database.jdbc', name: 'ojdbc10', version: '19.3.0.0'
 
 	//이메일관련 추가
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 }
 
 tasks.named('test') {

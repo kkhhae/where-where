@@ -10842,8 +10842,9 @@ body {
   height: 100%;
 }
 
+/* 메인페이지 컨텐츠 구역*/
 .page-section {
-  padding: 8rem 0;
+  padding: 30rem 0;
 }
 
 .text-white-75 {

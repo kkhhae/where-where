@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import { useCookies } from 'react-cookie';
 
 import { MainNav } from '../App';
+import Logo from '../Component/whereLogo.png'
 
 function Header() {
 
@@ -25,7 +26,8 @@ function Header() {
       
       <nav className="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div className="container px-4 px-lg-5">
-                <a onClick={() => naviGate('/')} className="navbar-brand">어디?어디!</a>
+                <img src={Logo} onClick={() => naviGate('/')} className="navbar-brand" style={{width:'50px', height:'50px'}}/> 
+                <a className="nav-link" style={{color:'#fff'}} onClick={() => naviGate('/')}>어디?어디!</a>
                  <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav ms-auto my-2 my-lg-0">
                         <li className="nav-item"><a onClick={() =>naviGate('/map')} className="nav-link" >지도</a></li>
