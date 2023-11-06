@@ -43,6 +43,22 @@ Spring boot, Spring jPA, Spring Security, Oracle, Mybatis
 메인페이지, 검색기능, 키워드 버튼, 지도기능, 실시간 조회기능, 로그인, 회원가입
 
 ---
+### 프로젝트 시연
+
+메인페이지
+
+![mainzid](https://github.com/kkhhae/where-where/assets/145322792/085b380b-e3be-4476-83f9-ef8f92f5f450)
+
+지도페이지 - 검색, 버튼, 역 실시간 도착정보
+
+![searbutstation](https://github.com/kkhhae/where-where/assets/145322792/c3ee1aea-cdd5-4db2-8800-8fc503de308b)
+
+지도페이지 - 유튜브,포스팅
+
+![youpostzid](https://github.com/kkhhae/where-where/assets/145322792/aa93afea-d687-4808-b0d3-3f0f0c21771e)
+
+
+---
 ### 개발 관련 문서
 프로젝트 폴더 구조
 
