@@ -29,7 +29,7 @@
 ---
 ### 사용한 기술 및 환경
 
-#### Front
+### Front
 JSX, CSS, JavaScript, React, nodeJS
 
 ### Back
