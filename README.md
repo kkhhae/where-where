@@ -1,15 +1,12 @@
-
+# Main Page
 ![main1](https://github.com/kkhhae/where-where/assets/145322792/110d42fd-1761-4433-ae0a-ea24b8b5a588)
 ![main2](https://github.com/kkhhae/where-where/assets/145322792/5ce58fda-ed29-46d4-a817-ee046070dc1c)
 
-# Main Page
 ---
-
 ### Description
 <span style="border 1px solid #EAEAEA">여러 지역에 관한 정보를 한눈에 볼 수 있는 통합정보포털시스템입니다. </span>
 
 ---
-
 ### 기획 의도
 <span style="border 1px solid #EAEAEA">해당 지역 또는 장소에 대한 영상, sns등 여러 정보를 한눈에 확인할 수 있도록 하는 사이트입니다.</span>
 
@@ -36,9 +33,7 @@ JSX, CSS, JavaScript, React, nodeJS
 Spring boot, Spring jPA, Spring Security, Oracle, Mybatis
 
 ---
-### Team (담당한 업무)
-
-김해오
+### 주요 기능
 
 메인페이지, 검색기능, 키워드 버튼, 지도기능, 실시간 조회기능, 로그인, 회원가입
 
