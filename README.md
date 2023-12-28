@@ -27,10 +27,13 @@
 ### 사용한 기술 및 환경
 
 ### Front
-JSX, CSS, JavaScript, React, nodeJS
+React, JavaScript, JSX, CSS, nodeJS
 
 ### Back
-Spring boot, Spring jPA, Spring Security, Oracle, Mybatis
+Spring, Oracle DB
+
+### Tool
+IntelliJ, vs code
 
 ---
 ### 주요 기능
